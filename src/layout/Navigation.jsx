@@ -11,7 +11,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { IoMoon, IoSunny } from "react-icons/io5";
-import WeatherWidget from "./WeatherWidget";
+import WeatherWidget from "../widgets/WeatherWidget";
 
 // ============================================================================
 // Navigation Component

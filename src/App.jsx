@@ -7,48 +7,25 @@
  * ================================================================================
  */
 
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import Homepage from "./components/Homepage";
-import About from "./components/About";
-import SiteMap from "./components/Sitemap";
-import Contact from "./components/Contact";
-import Gallery from "./components/gallery";
-import Ecology from "./components/Ecology";
-import NaturalBurial from "./components/NaturalBurial";
-import Shop from "./components/Shop";
-import lightModeBackdrop from "./assets/globalimages/lightmode.jpg";
-import darkModeBackdrop from "./assets/globalimages/darkmode.jpg";
 
-// ============================================================================
-// Layout Components
-// ============================================================================
+// Layout (shown on every page)
+import Navigation from "./layout/Navigation";
 
-/**
- * GlassPage - Wrapper component providing glass morphism styling for content pages
- * @param {Object} props
- * @param {React.ReactNode} props.children - Content to wrap in glass panel
- * @returns {JSX.Element}
- */
-const GlassPage = ({ children }) => (
-  <section className="mx-auto w-full max-w-7xl rounded-[32px] border border-white/40 bg-white/40 p-8 shadow-lg shadow-slate-900/10 backdrop-blur-2xl backdrop-saturate-150 transition duration-500 dark:border-slate-500/40 dark:bg-slate-900/40 dark:shadow-black/30">
-    {children}
-  </section>
-);
+// Pages
+import Homepage from "./pages/Homepage";
+import About from "./pages/About";
+import SiteMap from "./pages/Sitemap";
+import Contact from "./pages/Contact";
+import Gallery from "./pages/Gallery";
+import Ecology from "./pages/Ecology";
+import NaturalBurial from "./pages/NaturalBurial";
+import Shop from "./pages/Shop";
 
-/**
- * FullBleedGlass - Glass morphism wrapper without padding for full-width content
- * Used for map page to allow edge-to-edge map display
- * @param {Object} props
- * @param {React.ReactNode} props.children - Content to wrap
- * @returns {JSX.Element}
- */
-const FullBleedGlass = ({ children }) => (
-  <section className="mx-auto w-full max-w-7xl overflow-hidden rounded-[32px] border border-white/40 bg-white/40 shadow-lg shadow-slate-900/10 backdrop-blur-2xl backdrop-saturate-150 transition duration-500 dark:border-slate-500/40 dark:bg-slate-900/40 dark:shadow-black/30">
-    {children}
-  </section>
-);
+// Appearance (dark/light theme and glass panels)
+import useDarkMode from "./appearance/useDarkMode";
+import { GlassPage, FullBleedGlass } from "./appearance/GlassPanels";
 
 // ============================================================================
 // Main App Component
@@ -63,24 +40,8 @@ function App() {
   // State Management
   // ============================================================================
   
-  // Track dark mode state for theme switching
-  const [dark, setDark] = useState(false);
-
-  // ============================================================================
-  // Event Handlers
-  // ============================================================================
-  
-  /**
-   * Toggle dark mode and update body class for Tailwind dark mode
-   * Body class is required for Tailwind's dark: variant to work globally
-   */
-  const darkModeHandler = () => {
-    setDark(!dark);
-    document.body.classList.toggle("dark");
-  };
-
-  // Select background image based on current theme
-  const backgroundImage = dark ? darkModeBackdrop : lightModeBackdrop;
+  // Dark/light theme state, toggle and background (see src/appearance/)
+  const { dark, toggleDarkMode, backgroundImage } = useDarkMode();
 
   // ============================================================================
   // Render
@@ -113,7 +74,7 @@ function App() {
         ></div>
 
           <div className="relative z-10 flex min-h-screen flex-col">
-            <Navigation toggleDarkMode={darkModeHandler} dark={dark} />
+            <Navigation toggleDarkMode={toggleDarkMode} dark={dark} />
             {/* Spacer div to account for fixed navigation height */}
             {/* Uses CSS custom property set by Navigation component */}
             <div

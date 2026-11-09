@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import Ecology from '../../src/components/Ecology';
+import Ecology from '../../src/pages/Ecology';
 
 describe('Ecology component', () => {
   it('renders basic content', () => {

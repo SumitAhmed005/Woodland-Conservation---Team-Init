@@ -12,7 +12,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import ecologyData from '../data/ecologydata.json';
-import Footer from "./Footer";
+import Footer from "../layout/Footer";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================

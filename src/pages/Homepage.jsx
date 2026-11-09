@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { FaTree, FaCamera, FaMapMarkedAlt } from "react-icons/fa";
 import { BsArrowRightCircle, BsArrowUpRight } from "react-icons/bs";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
-import Footer from "./Footer";
+import Footer from "../layout/Footer";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================

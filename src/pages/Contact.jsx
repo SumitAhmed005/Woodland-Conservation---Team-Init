@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
-import Footer from "./Footer";
+import Footer from "../layout/Footer";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================

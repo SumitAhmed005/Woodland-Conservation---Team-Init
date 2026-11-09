@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import Footer from '../../src/components/Footer';
+import Footer from '../../src/layout/Footer';
 
 describe('Footer component', () => {
   it('renders sections, links, address and social icons', () => {

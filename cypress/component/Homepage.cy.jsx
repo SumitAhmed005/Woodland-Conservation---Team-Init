@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import Homepage from '../../src/components/Homepage';
+import Homepage from '../../src/pages/Homepage';
 
 describe('Homepage component', () => {
   it('renders hero text and main links', () => {

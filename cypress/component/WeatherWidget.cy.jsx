@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherWidget from '../../src/components/WeatherWidget';
+import WeatherWidget from '../../src/widgets/WeatherWidget';
 
 describe('WeatherWidget component', () => {
   beforeEach(() => {
