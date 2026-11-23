@@ -7,6 +7,7 @@
  * ================================================================================
  */
 
+import { useLanguage } from "../locales/LanguageContext";
 import React, { useState, useEffect, useRef } from "react";
 import bannerImage from "../assets/homepage-banner.jpg";
 import { Link } from "react-router-dom";
@@ -58,6 +59,7 @@ const coreTiles = [
  * @returns {JSX.Element}
  */
 const Homepage = () => {
+  const { t } = useLanguage();
   // ============================================================================
   // State Management
   // ============================================================================
@@ -222,9 +224,9 @@ const Homepage = () => {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-300">
             St. Margaret&apos;s Bay Area Woodland
           </p>
-          <h1 className="text-2xl font-semibold md:text-3xl">
-            A community forest that keeps local history and coastal birch standing strong.
-          </h1>
+         <h1 className="text-2xl font-semibold md:text-3xl">
+         {t("home.title")}
+         </h1>
           <p className="max-w-xl text-sm text-slate-600 dark:text-slate-300">
             Welcome to the French Village Conservation Woodland at 71 St. Pauls Lane—27 acres of protected forest and wetlands.
             Walk the one-way trail to eight simple stops, from the exercise bar to the labyrinth, discover community stories along

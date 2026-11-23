@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "siteName": "Woodland Conservation",
+    "logoAlt": "Woodland Conservation Logo",
+    "home": "Home",
+    "about": "About",
+    "map": "Map",
+    "gallery": "Gallery",
+    "ecology": "Ecology",
+    "naturalBurial": "Natural Burial",
+    "shop": "Shop",
+    "contact": "Contact",
+    "toggleDark": "Toggle dark mode",
+    "toggleMenu": "Toggle navigation menu",
+    "navigate": "Navigate",
+    "closeMenu": "Close menu"
+  },
+   "home": {
+    "eyebrow": "St. Margaret's Bay Area Woodland",
+   "title": "A community forest that keeps local history and coastal birch standing strong.",
+    "intro": "Welcome to the French Village Conservation Woodland at 71 St. Pauls Lane—27 acres of protected forest and wetlands. Walk the one-way trail to eight simple stops, from the exercise bar to the labyrinth, discover community stories along the way, and return the same route as the forest soundtrack changes around you.",
+    "bannerAlt": "Trail canopy",
+    "links": {
+      "trailMap": "Trail Map",
+      "about": "About",
+      "ecology": "Ecology",
+      "contact": "Contact"
+    },
+    "tiles": {
+      "explore": {
+        "title": "Explore the Conservation Area",
+        "body": "Follow the signed one kilometre trail out to wells, resting clearings, and the woodland labyrinth, then wander back through shifting light.",
+        "cta": "Trail Map"
+      },
+      "photos": {
+        "title": "Share & Explore Photos",
+        "body": "Browse community photos and add your own snapshots to show how the woods change through the year.",
+        "cta": "Gallery"
+      },
+      "education": {
+        "title": "Conservation Education",
+        "body": "Meet the plants and wildlife that call this forest home and learn how we protect their habitat.",
+        "cta": "Learn"
+      }
+    },
+    "stats": {
+      "trail": { "value": "1 km", "label": "Gentle out-and-back trail with eight simple landmarks and easy grades." },
+      "stops": { "value": "8 stops", "label": "Exercise bar, wells, resting clearings, listening telephone, and the labyrinth." },
+      "birch": { "value": "Coastal birch", "label": "Yellow birch stands and mixed forest cared for through invasive removal." },
+      "volunteers": { "value": "Volunteer-led", "label": "Neighbours and partners look after the path, signage, and stewardship events." }
+    }
+  },
+  "audio": {
+    "play": "Play Audio",
+    "stop": "Stop Audio",
+    "keysRequiredTitle": "Azure API Keys Required",
+    "keysMissing": "Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.",
+    "notInitialized": "Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.",
+    "playFailed": "Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.",
+    "genericError": "An error occurred while trying to play audio. Please update your Azure Speech API keys.",
+    "configureHint": "Configure in Netlify/Azure environment variables or create a .env file for local development.",
+    "dismiss": "Dismiss"
+  }
+}

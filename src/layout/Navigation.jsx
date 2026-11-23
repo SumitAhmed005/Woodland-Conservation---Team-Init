@@ -2,6 +2,8 @@
  * ================================================================================
  * File: Navigation.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall -
+ * Added language switcher and translations
  * Description: Responsive navigation component with mobile menu, dark mode toggle,
  * and CSS custom property management for layout spacing.
  * ================================================================================
