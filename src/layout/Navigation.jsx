@@ -2,19 +2,18 @@
  * ================================================================================
  * File: Navigation.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
- * Modified by: Sumit Ahmed (Team Init) 2026 Fall -
- * Added language switcher and translations
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Added language dropdown and translations
  * Description: Responsive navigation component with mobile menu, dark mode toggle,
- * and CSS custom property management for layout spacing.
+ * language selector and CSS custom property management for layout spacing.
  * ================================================================================
  */
 
-import { useLanguage, LANGUAGES } from "../locales/LanguageContext";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import WeatherWidget from "../widgets/WeatherWidget";
 import { IoMoon, IoSunny, IoGlobeOutline } from "react-icons/io5";
+import WeatherWidget from "../widgets/WeatherWidget";
+import { useLanguage, LANGUAGES } from "../locales/LanguageContext";
 
 // ============================================================================
 // Navigation Component
@@ -29,22 +28,25 @@ import { IoMoon, IoSunny, IoGlobeOutline } from "react-icons/io5";
  */
 const Navigation = ({ toggleDarkMode, dark }) => {
   const { lang, setLang, t } = useLanguage();
-  // ============================================================================
-  // State Management
-  // ============================================================================
 
   // Track mobile menu open/closed state
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
 
-  // ============================================================================
-  // Side Effects
-  // ============================================================================
+  // Page links, shared by the desktop bar and the mobile menu
+  const links = [
+    { to: "/", key: "nav.home" },
+    { to: "/about", key: "nav.about" },
+    { to: "/sitemap", key: "nav.map" },
+    { to: "/gallery", key: "nav.gallery" },
+    { to: "/ecology", key: "nav.ecology" },
+    { to: "/natural-burial", key: "nav.naturalBurial" },
+    { to: "/shop", key: "nav.shop" },
+    { to: "/contact", key: "nav.contact" },
+  ];
 
   /**
    * Prevent body scroll when mobile menu is open
-   * Prevents background scrolling while menu overlay is active
-   * Dependency on isOpen ensures scroll lock updates when menu state changes
    */
   useEffect(() => {
     if (isOpen) {
@@ -53,16 +55,14 @@ const Navigation = ({ toggleDarkMode, dark }) => {
       document.body.style.overflow = "unset";
     }
 
-    // Cleanup function to reset overflow when component unmounts
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]); // Re-run when menu open state changes
+  }, [isOpen]);
 
   /**
    * Update CSS custom properties for navigation height
    * Allows other components to calculate spacing based on nav height
-   * Updates on resize and menu state changes to handle dynamic sizing
    */
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -83,26 +83,18 @@ const Navigation = ({ toggleDarkMode, dark }) => {
     return () => {
       window.removeEventListener("resize", updateNavMetrics);
     };
-  }, [isOpen]); // Re-calculate when menu state or window size changes
+  }, [isOpen, lang]); // Re-measure when menu, window size or language changes
 
-  // ============================================================================
-  // Event Handlers
-  // ============================================================================
-
-  /**
-   * Toggle mobile navigation menu open/closed state
-   */
   const toggleNav = () => {
     setIsOpen(!isOpen);
   };
 
-  // ============================================================================
-  // Render
-  // ============================================================================
-
   // Reusable link styling for consistent navigation appearance
   const linkBase =
-    "py-2 px-4 rounded-xl transition-colors duration-300 text-sm lg:text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-white/40 hover:text-emerald-700 dark:hover:text-emerald-300";
+    "whitespace-nowrap py-2 px-4 rounded-xl transition-colors duration-300 text-sm lg:text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-white/40 hover:text-emerald-700 dark:hover:text-emerald-300";
+
+  const mobileLinkClass =
+    "block rounded-xl border border-white/30 bg-white/40 px-4 py-3 text-slate-800 shadow-inner shadow-slate-900/5 transition hover:bg-white/70 dark:border-slate-700/60 dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80";
 
   return (
     <>
@@ -116,11 +108,11 @@ const Navigation = ({ toggleDarkMode, dark }) => {
               <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                 <img
                   src={logo}
-                  alt="Woodland Conservation Logo"
+                  alt={t("nav.logoAlt")}
                   className="h-10 w-10 rounded-xl border border-white/40 p-1 shadow-inner shadow-slate-900/10 sm:h-14 sm:w-14"
                 />
                 <span className="hidden truncate text-base font-semibold text-slate-800 dark:text-slate-100 sm:block sm:text-lg">
-                  Woodland Conservation
+                  {t("nav.siteName")}
                 </span>
               </div>
               <div className="flex min-w-0 items-center text-xs sm:text-sm">
@@ -129,40 +121,23 @@ const Navigation = ({ toggleDarkMode, dark }) => {
             </div>
 
             <div className="order-3 hidden w-full items-center justify-center gap-1 md:order-2 md:flex md:flex-1 md:w-auto md:gap-2">
-              <Link to="/" className={linkBase}>
-                {t("nav.home")}
-              </Link>
-              <Link to="/about" className={linkBase}>
-                {t("nav.about")}
-              </Link>
-              <Link to="/sitemap" className={linkBase}>
-                {t("nav.map")}
-              </Link>
-              <Link to="/gallery" className={linkBase}>
-                {t("nav.gallery")}
-              </Link>
-              <Link to="/ecology" className={linkBase}>
-                {t("nav.ecology")}
-              </Link>
-              <Link to="/natural-burial" className={linkBase}>
-                {t("nav.naturalBurial")}
-              </Link>
-              <Link to="/shop" className={linkBase}>
-                {t("nav.shop")}
-              </Link>
-              <Link to="/contact" className={linkBase}>
-                {t("nav.contact")}
-              </Link>
+              {links.map(({ to, key }) => (
+                <Link key={to} to={to} className={linkBase}>
+                  {t(key)}
+                </Link>
+              ))}
             </div>
 
             <div className="order-2 flex items-center gap-2 sm:gap-3 md:order-3">
               <button
                 onClick={toggleDarkMode}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/50 bg-white/70 text-xl text-amber-500 shadow-md shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-800/70 sm:h-12 sm:w-12 sm:text-2xl"
-                aria-label="Toggle dark mode"
+                aria-label={t("nav.toggleDark")}
               >
                 {dark ? <IoSunny /> : <IoMoon />}
               </button>
+
+              {/* Language selector */}
               <label className="flex h-10 items-center gap-1 rounded-full border border-white/50 bg-white/70 px-2 text-xs font-semibold text-slate-800 shadow-md shadow-slate-900/10 backdrop-blur-xl dark:border-slate-600/60 dark:bg-slate-800/70 dark:text-slate-100">
                 <IoGlobeOutline className="hidden text-lg lg:block" aria-hidden="true" />
                 <span className="sr-only">Language</span>
@@ -179,10 +154,11 @@ const Navigation = ({ toggleDarkMode, dark }) => {
                   ))}
                 </select>
               </label>
+
               <button
                 onClick={toggleNav}
                 className="block rounded-full border border-white/50 bg-white/70 p-2 text-slate-800 shadow-md shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-800/70 dark:text-slate-100 md:hidden"
-                aria-label="Toggle navigation menu"
+                aria-label={t("nav.toggleMenu")}
               >
                 <svg
                   className="h-5 w-5 sm:h-6 sm:w-6"
@@ -207,13 +183,15 @@ const Navigation = ({ toggleDarkMode, dark }) => {
       {/* Mobile menu overlay - only visible on mobile devices */}
       {isOpen && (
         <>
-          {/* Backdrop overlay - clicking closes menu */}
           <div className="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-md md:hidden" onClick={toggleNav} />
           <div className="fixed top-4 right-4 z-50 w-[86vw] max-w-sm rounded-3xl border border-white/40 bg-white/70 p-6 shadow-2xl shadow-slate-900/30 backdrop-blur-3xl transition-colors duration-300 dark:border-slate-700/60 dark:bg-slate-900/70 md:hidden">
             <div className="mb-6 flex items-center justify-between">
-              <span className="text-lg font-semibold text-slate-800 dark:text-slate-100">Navigate</span>
+              <span className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+                {t("nav.navigate")}
+              </span>
               <button
                 onClick={toggleNav}
+                aria-label={t("nav.closeMenu")}
                 className="rounded-full border border-white/50 bg-white/80 p-2 text-slate-700 hover:bg-white dark:border-slate-600/60 dark:bg-slate-800/80 dark:text-slate-100"
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,27 +200,11 @@ const Navigation = ({ toggleDarkMode, dark }) => {
               </button>
             </div>
             <nav className="flex flex-col space-y-2 text-base">
-              {["/", "/about", "/sitemap", "/gallery", "/ecology", "/natural-burial", "/shop", "/contact"].map(
-                (href, idx) => {
-                  const labels = ["Home", "About", "Map", "Gallery", "Ecology", "Natural Burial", "Shop", "Contact"];
-                  const classes =
-                    "block rounded-xl border border-white/30 bg-white/40 px-4 py-3 text-slate-800 shadow-inner shadow-slate-900/5 transition hover:bg-white/70 dark:border-slate-700/60 dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80";
-
-                  if (href.startsWith("#")) {
-                    return (
-                      <a key={href} href={href} onClick={toggleNav} className={classes}>
-                        {labels[idx]}
-                      </a>
-                    );
-                  }
-
-                  return (
-                    <Link key={href} to={href} onClick={toggleNav} className={classes}>
-                      {labels[idx]}
-                    </Link>
-                  );
-                }
-              )}
+              {links.map(({ to, key }) => (
+                <Link key={to} to={to} onClick={toggleNav} className={mobileLinkClass}>
+                  {t(key)}
+                </Link>
+              ))}
             </nav>
           </div>
         </>
