@@ -32,7 +32,7 @@ const Navigation = ({ toggleDarkMode, dark }) => {
   // ============================================================================
   // State Management
   // ============================================================================
-  
+
   // Track mobile menu open/closed state
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
@@ -40,7 +40,7 @@ const Navigation = ({ toggleDarkMode, dark }) => {
   // ============================================================================
   // Side Effects
   // ============================================================================
-  
+
   /**
    * Prevent body scroll when mobile menu is open
    * Prevents background scrolling while menu overlay is active
@@ -88,7 +88,7 @@ const Navigation = ({ toggleDarkMode, dark }) => {
   // ============================================================================
   // Event Handlers
   // ============================================================================
-  
+
   /**
    * Toggle mobile navigation menu open/closed state
    */
@@ -99,7 +99,7 @@ const Navigation = ({ toggleDarkMode, dark }) => {
   // ============================================================================
   // Render
   // ============================================================================
-  
+
   // Reusable link styling for consistent navigation appearance
   const linkBase =
     "py-2 px-4 rounded-xl transition-colors duration-300 text-sm lg:text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-white/40 hover:text-emerald-700 dark:hover:text-emerald-300";
@@ -154,7 +154,7 @@ const Navigation = ({ toggleDarkMode, dark }) => {
                 Contact
               </Link>
             </div>
-            
+
             <div className="order-2 flex items-center gap-2 sm:gap-3 md:order-3">
               <button
                 onClick={toggleDarkMode}
@@ -163,21 +163,21 @@ const Navigation = ({ toggleDarkMode, dark }) => {
               >
                 {dark ? <IoSunny /> : <IoMoon />}
               </button>
-              <label className="flex h-10 items-center gap-1 rounded-full border border-white/50 bg-white/70 pl-3 pr-1 text-sm font-semibold text-slate-800 shadow-md shadow-slate-900/10 backdrop-blur-xl dark:border-slate-600/60 dark:bg-slate-800/70 dark:text-slate-100 sm:h-12">
-              <IoGlobeOutline className="text-lg" aria-hidden="true" />
-              <span className="sr-only">Language</span>
-              <select
-              value={lang}
-              onChange={(e) => setLang(e.target.value)}
-              className="cursor-pointer bg-transparent py-1 pr-1 focus:outline-none"
-              data-testid="language-select"
-              >
-              {LANGUAGES.map(({ code, label }) => (
-              <option key={code} value={code} className="text-slate-800">
-              {label}
-              </option>
-             ))}
-              </select>
+              <label className="flex h-10 items-center gap-1 rounded-full border border-white/50 bg-white/70 px-2 text-xs font-semibold text-slate-800 shadow-md shadow-slate-900/10 backdrop-blur-xl dark:border-slate-600/60 dark:bg-slate-800/70 dark:text-slate-100">
+                <IoGlobeOutline className="hidden text-lg lg:block" aria-hidden="true" />
+                <span className="sr-only">Language</span>
+                <select
+                  value={lang}
+                  onChange={(e) => setLang(e.target.value)}
+                  className="cursor-pointer bg-transparent py-1 pr-1 focus:outline-none"
+                  data-testid="language-select"
+                >
+                  {LANGUAGES.map(({ code, label }) => (
+                    <option key={code} value={code} className="text-slate-800">
+                      {label}
+                    </option>
+                  ))}
+                </select>
               </label>
               <button
                 onClick={toggleNav}

@@ -13,9 +13,9 @@ import mic from "./mic.json";
 
 const translations = { en, fr, mic };
 export const LANGUAGES = [
-  { code: "en", label: "EN" },
-  { code: "fr", label: "FR" },
-  { code: "mic", label: "Mi'kmaq" },
+{ code: "en", label: "EN" },
+{ code: "fr", label: "FR" },
+{ code: "mic", label: "MI'K" },
 ];
 
 const LanguageContext = createContext(null);
