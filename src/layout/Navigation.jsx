@@ -130,28 +130,28 @@ const Navigation = ({ toggleDarkMode, dark }) => {
 
             <div className="order-3 hidden w-full items-center justify-center gap-1 md:order-2 md:flex md:flex-1 md:w-auto md:gap-2">
               <Link to="/" className={linkBase}>
-                Home
+                {t("nav.home")}
               </Link>
               <Link to="/about" className={linkBase}>
-                About
+                {t("nav.about")}
               </Link>
               <Link to="/sitemap" className={linkBase}>
-                Map
+                {t("nav.map")}
               </Link>
               <Link to="/gallery" className={linkBase}>
-                Gallery
+                {t("nav.gallery")}
               </Link>
               <Link to="/ecology" className={linkBase}>
-                Ecology
+                {t("nav.ecology")}
               </Link>
               <Link to="/natural-burial" className={linkBase}>
-                Natural Burial
+                {t("nav.naturalBurial")}
               </Link>
               <Link to="/shop" className={linkBase}>
-                Shop
+                {t("nav.shop")}
               </Link>
               <Link to="/contact" className={linkBase}>
-                Contact
+                {t("nav.contact")}
               </Link>
             </div>
 

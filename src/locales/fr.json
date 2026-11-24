@@ -1,1 +1,15 @@
-{}
+{
+    "nav": {
+        "home": "Accueil",
+        "about": "À propos",
+        "map": "Carte",
+        "gallery": "Galerie",
+        "ecology": "Écologie",
+        "naturalBurial": "Inhumation naturelle",
+        "shop": "Boutique",
+        "contact": "Contact"
+    },
+    "home": {
+        "title": "Une forêt communautaire qui préserve l'histoire locale et les bouleaux côtiers."
+    }
+}
