@@ -9,11 +9,12 @@
  * ================================================================================
  */
 
+import { useLanguage, LANGUAGES } from "../locales/LanguageContext";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { IoMoon, IoSunny } from "react-icons/io5";
 import WeatherWidget from "../widgets/WeatherWidget";
+import { IoMoon, IoSunny, IoGlobeOutline } from "react-icons/io5";
 
 // ============================================================================
 // Navigation Component
@@ -27,6 +28,7 @@ import WeatherWidget from "../widgets/WeatherWidget";
  * @returns {JSX.Element}
  */
 const Navigation = ({ toggleDarkMode, dark }) => {
+  const { lang, setLang, t } = useLanguage();
   // ============================================================================
   // State Management
   // ============================================================================
@@ -152,7 +154,7 @@ const Navigation = ({ toggleDarkMode, dark }) => {
                 Contact
               </Link>
             </div>
-
+            
             <div className="order-2 flex items-center gap-2 sm:gap-3 md:order-3">
               <button
                 onClick={toggleDarkMode}
@@ -161,6 +163,22 @@ const Navigation = ({ toggleDarkMode, dark }) => {
               >
                 {dark ? <IoSunny /> : <IoMoon />}
               </button>
+              <label className="flex h-10 items-center gap-1 rounded-full border border-white/50 bg-white/70 pl-3 pr-1 text-sm font-semibold text-slate-800 shadow-md shadow-slate-900/10 backdrop-blur-xl dark:border-slate-600/60 dark:bg-slate-800/70 dark:text-slate-100 sm:h-12">
+              <IoGlobeOutline className="text-lg" aria-hidden="true" />
+              <span className="sr-only">Language</span>
+              <select
+              value={lang}
+              onChange={(e) => setLang(e.target.value)}
+              className="cursor-pointer bg-transparent py-1 pr-1 focus:outline-none"
+              data-testid="language-select"
+              >
+              {LANGUAGES.map(({ code, label }) => (
+              <option key={code} value={code} className="text-slate-800">
+              {label}
+              </option>
+             ))}
+              </select>
+              </label>
               <button
                 onClick={toggleNav}
                 className="block rounded-full border border-white/50 bg-white/70 p-2 text-slate-800 shadow-md shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-800/70 dark:text-slate-100 md:hidden"
