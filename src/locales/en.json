@@ -1,6 +1,7 @@
 {
   "nav": {
     "siteName": "Woodland Conservation",
+    "siteNameShort": "Woodland",
     "logoAlt": "Woodland Conservation Logo",
     "home": "Home",
     "about": "About",
@@ -10,14 +11,15 @@
     "naturalBurial": "Natural Burial",
     "shop": "Shop",
     "contact": "Contact",
+    "more": "More",
     "toggleDark": "Toggle dark mode",
     "toggleMenu": "Toggle navigation menu",
     "navigate": "Navigate",
     "closeMenu": "Close menu"
   },
-   "home": {
+  "home": {
     "eyebrow": "St. Margaret's Bay Area Woodland",
-   "title": "A community forest that keeps local history and coastal birch standing strong.",
+    "title": "A community forest that keeps local history and coastal birch standing strong.",
     "intro": "Welcome to the French Village Conservation Woodland at 71 St. Pauls Lane—27 acres of protected forest and wetlands. Walk the one-way trail to eight simple stops, from the exercise bar to the labyrinth, discover community stories along the way, and return the same route as the forest soundtrack changes around you.",
     "bannerAlt": "Trail canopy",
     "links": {
@@ -44,10 +46,22 @@
       }
     },
     "stats": {
-      "trail": { "value": "1 km", "label": "Gentle out-and-back trail with eight simple landmarks and easy grades." },
-      "stops": { "value": "8 stops", "label": "Exercise bar, wells, resting clearings, listening telephone, and the labyrinth." },
-      "birch": { "value": "Coastal birch", "label": "Yellow birch stands and mixed forest cared for through invasive removal." },
-      "volunteers": { "value": "Volunteer-led", "label": "Neighbours and partners look after the path, signage, and stewardship events." }
+      "trail": {
+        "value": "1 km",
+        "label": "Gentle out-and-back trail with eight simple landmarks and easy grades."
+      },
+      "stops": {
+        "value": "8 stops",
+        "label": "Exercise bar, wells, resting clearings, listening telephone, and the labyrinth."
+      },
+      "birch": {
+        "value": "Coastal birch",
+        "label": "Yellow birch stands and mixed forest cared for through invasive removal."
+      },
+      "volunteers": {
+        "value": "Volunteer-led",
+        "label": "Neighbours and partners look after the path, signage, and stewardship events."
+      }
     }
   },
   "audio": {

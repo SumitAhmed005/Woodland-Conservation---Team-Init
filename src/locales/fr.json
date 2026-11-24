@@ -1,5 +1,8 @@
 {
     "nav": {
+        "siteName": "Woodland Conservation",
+        "siteNameShort": "Woodland",
+        "logoAlt": "Logo de Woodland Conservation",
         "home": "Accueil",
         "about": "À propos",
         "map": "Carte",
@@ -7,9 +10,69 @@
         "ecology": "Écologie",
         "naturalBurial": "Inhumation naturelle",
         "shop": "Boutique",
-        "contact": "Contact"
+        "contact": "Contact",
+        "more": "Plus",
+        "toggleDark": "Activer ou désactiver le mode sombre",
+        "toggleMenu": "Ouvrir ou fermer le menu",
+        "navigate": "Navigation",
+        "closeMenu": "Fermer le menu"
     },
     "home": {
-        "title": "Une forêt communautaire qui préserve l'histoire locale et les bouleaux côtiers."
+        "eyebrow": "Boisé de la région de St. Margaret's Bay",
+        "title": "Une forêt communautaire qui préserve l'histoire locale et les bouleaux côtiers.",
+        "intro": "Bienvenue au boisé de conservation de French Village, au 71 St. Pauls Lane : 27 acres de forêt et de milieux humides protégés. Suivez le sentier à sens unique jusqu'à huit arrêts simples, de la barre d'exercice au labyrinthe, découvrez des histoires de la communauté en chemin, puis revenez par le même trajet tandis que la trame sonore de la forêt change autour de vous.",
+        "bannerAlt": "Canopée du sentier",
+        "links": {
+            "trailMap": "Carte du sentier",
+            "about": "À propos",
+            "ecology": "Écologie",
+            "contact": "Contact"
+        },
+        "tiles": {
+            "explore": {
+                "title": "Explorez l'aire de conservation",
+                "body": "Suivez le sentier balisé d'un kilomètre jusqu'aux puits, aux clairières de repos et au labyrinthe du boisé, puis revenez sous une lumière changeante.",
+                "cta": "Carte du sentier"
+            },
+            "photos": {
+                "title": "Partagez et explorez des photos",
+                "body": "Parcourez les photos de la communauté et ajoutez les vôtres pour montrer comment le boisé change au fil de l'année.",
+                "cta": "Galerie"
+            },
+            "education": {
+                "title": "Éducation à la conservation",
+                "body": "Découvrez les plantes et les animaux qui habitent cette forêt et apprenez comment nous protégeons leur habitat.",
+                "cta": "En savoir plus"
+            }
+        },
+        "stats": {
+            "trail": {
+                "value": "1 km",
+                "label": "Sentier aller-retour facile avec huit repères simples et des pentes douces."
+            },
+            "stops": {
+                "value": "8 arrêts",
+                "label": "Barre d'exercice, puits, clairières de repos, téléphone d'écoute et labyrinthe."
+            },
+            "birch": {
+                "value": "Bouleaux côtiers",
+                "label": "Peuplements de bouleaux jaunes et forêt mixte entretenus par le retrait des espèces envahissantes."
+            },
+            "volunteers": {
+                "value": "Géré par des bénévoles",
+                "label": "Voisins et partenaires entretiennent le sentier, la signalisation et les activités d'intendance."
+            }
+        }
+    },
+    "audio": {
+        "play": "Écouter",
+        "stop": "Arrêter",
+        "keysRequiredTitle": "Clés API Azure requises",
+        "keysMissing": "Les clés de l'API Azure Speech sont manquantes ou invalides. Veuillez mettre à jour VITE_AZURE_SPEECH_KEY et VITE_AZURE_REGION avec des clés valides dans vos variables d'environnement (tableau de bord Netlify/Azure) ou dans le fichier .env pour le développement local.",
+        "notInitialized": "La synthèse vocale n'est pas initialisée. Veuillez configurer les clés API Azure et actualiser la page.",
+        "playFailed": "Impossible de lire l'audio. Vos clés de l'API Azure Speech sont peut-être invalides ou manquantes. Veuillez mettre à jour VITE_AZURE_SPEECH_KEY et VITE_AZURE_REGION avec des clés valides dans vos variables d'environnement (tableau de bord Netlify/Azure) ou dans le fichier .env.",
+        "genericError": "Une erreur s'est produite lors de la lecture de l'audio. Veuillez mettre à jour vos clés de l'API Azure Speech.",
+        "configureHint": "Configurez-les dans les variables d'environnement Netlify/Azure ou créez un fichier .env pour le développement local.",
+        "dismiss": "Fermer"
     }
 }

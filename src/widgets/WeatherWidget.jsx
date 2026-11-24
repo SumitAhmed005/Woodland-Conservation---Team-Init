@@ -24,7 +24,7 @@ const WeatherWidget = () => {
   // ============================================================================
   // State Management
   // ============================================================================
-  
+
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,7 +32,7 @@ const WeatherWidget = () => {
   // ============================================================================
   // Constants
   // ============================================================================
-  
+
   // Conservation site coordinates (71 St. Pauls Lane, French Village, NS)
   const lat = 44.623917;
   const lon = -63.920472;
@@ -43,7 +43,7 @@ const WeatherWidget = () => {
   // ============================================================================
   // Utility Functions
   // ============================================================================
-  
+
   /**
    * Map WMO weather interpretation codes to readable weather conditions
    * WMO codes are standard numeric codes used by meteorological services
@@ -117,7 +117,7 @@ const WeatherWidget = () => {
   // ============================================================================
   // Data Fetching & Side Effects
   // ============================================================================
-  
+
   /**
    * Fetch weather data on mount and set up refresh interval
    * Checks cache first to avoid unnecessary API calls
@@ -195,7 +195,7 @@ const WeatherWidget = () => {
     if (!cachedWeather) {
       fetchWeather();
     }
-    
+
     // Set up refresh interval: fetch every 15 minutes to keep data current
     const interval = setInterval(fetchWeather, 900000);
     return () => clearInterval(interval);
@@ -204,7 +204,7 @@ const WeatherWidget = () => {
   // ============================================================================
   // Rendering Helpers
   // ============================================================================
-  
+
   /**
    * Get appropriate weather icon based on condition and time of day
    * Shows sun/moon for clear weather, specific icons for other conditions
@@ -238,7 +238,7 @@ const WeatherWidget = () => {
   // ============================================================================
   // Render
   // ============================================================================
-  
+
   // Show loading spinner while fetching initial data
   if (loading) {
     return (
@@ -287,8 +287,8 @@ const WeatherWidget = () => {
       <div className="flex-shrink-0">{getWeatherIcon(weather.weather[0].main, getIsDay() ? 1 : 0)}</div>
       <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-1.5">
         <span className="font-semibold whitespace-nowrap">{Math.round(weather.main.temp)}°C</span>
-        <span className="hidden sm:inline text-slate-500 dark:text-slate-400">•</span>
-        <span className="capitalize text-slate-600 dark:text-slate-300 text-center sm:text-left">{weather.weather[0].description}</span>
+        <span className="hidden 2xl:inline text-slate-500 dark:text-slate-400">•</span>
+        <span className="hidden 2xl:inline capitalize text-slate-600 dark:text-slate-300 text-center sm:text-left">{weather.weather[0].description}</span>
       </div>
     </div>
   );
