@@ -49,12 +49,12 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link to="#natural-burial" className="hover:underline text-slate-500 dark:text-slate-300">
+              <Link to="/natural-burial" className="hover:underline text-slate-500 dark:text-slate-300">
                 Natural Burial
               </Link>
             </li>
             <li>
-              <Link to="#shop" className="hover:underline text-slate-500 dark:text-slate-300">
+              <Link to="/shop" className="hover:underline text-slate-500 dark:text-slate-300">
                 Shop
               </Link>
             </li>
