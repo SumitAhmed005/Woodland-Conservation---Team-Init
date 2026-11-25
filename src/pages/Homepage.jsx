@@ -2,6 +2,7 @@
  * ================================================================================
  * File: Homepage.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected all text to translations
  * Description: Landing page component displaying hero section, core features,
  * and trail information with integrated Azure text-to-speech functionality.
  * ================================================================================
@@ -25,27 +26,21 @@ import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 const glassPanel =
   "rounded-[28px] border border-white/40 bg-white/40 p-6 shadow-lg shadow-slate-900/10 backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-300 dark:border-slate-500/40 dark:bg-slate-900/40 dark:shadow-black/25";
 
-// Core feature tiles displayed on homepage
+// Core feature tiles - title/body/button text live in home.tiles.<id> in the locale files
 const coreTiles = [
   {
     icon: <FaTree className="text-emerald-500 text-3xl" />,
-    title: "Explore the Conservation Area",
-    body: "Follow the signed one kilometre trail out to wells, resting clearings, and the woodland labyrinth, then wander back through shifting light.",
-    cta: "Trail Map",
+    id: "explore",
     to: "/sitemap",
   },
   {
     icon: <FaCamera className="text-amber-500 text-3xl" />,
-    title: "Share & Explore Photos",
-    body: "Browse community photos and add your own snapshots to show how the woods change through the year.",
-    cta: "Gallery",
+    id: "photos",
     to: "/gallery",
   },
   {
     icon: <FaTree className="text-sky-500 text-3xl" />,
-    title: "Conservation Education",
-    body: "Meet the plants and wildlife that call this forest home and learn how we protect their habitat.",
-    cta: "Learn",
+    id: "education",
     to: "/ecology",
   },
 ];
@@ -147,7 +142,7 @@ const Homepage = () => {
         speechRegion.toLowerCase().includes('your_azure');
       
       if (hasPlaceholderKeys) {
-        setAlertMessage("Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.");
+        setAlertMessage(t("audio.keysMissing"));
         // Auto-dismiss alert after 10 seconds to give user time to read
         setTimeout(() => setAlertMessage(null), 10000);
         return;
@@ -160,7 +155,7 @@ const Homepage = () => {
       const player = playerRef.current;
       // Verify synthesizer was initialized successfully
       if (!synthesizer) {
-        setAlertMessage("Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.");
+        setAlertMessage(t("audio.notInitialized"));
         setTimeout(() => setAlertMessage(null), 8000);
         return;
       }
@@ -187,14 +182,14 @@ const Homepage = () => {
         (err) => {
           console.error("Speech error:", err);
           // Show alert immediately when WebSocket/API error occurs
-          setAlertMessage("Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.");
+          setAlertMessage(t("audio.playFailed"));
           setTimeout(() => setAlertMessage(null), 10000);
           setIsSpeaking(false);
         }
       );
     } catch (error) {
       console.error("Error playing audio:", error);
-      setAlertMessage("An error occurred while trying to play audio. Please update your Azure Speech API keys.");
+      setAlertMessage(t("audio.genericError"));
       setTimeout(() => setAlertMessage(null), 8000);
     }
   };
@@ -222,15 +217,13 @@ const Homepage = () => {
       <header className={`${glassPanel} flex flex-col gap-5 md:flex-row md:items-center md:justify-between`}>
         <div className="flex-1 space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-300">
-            St. Margaret&apos;s Bay Area Woodland
+            {t("home.eyebrow")}
           </p>
          <h1 className="text-2xl font-semibold md:text-3xl">
          {t("home.title")}
          </h1>
           <p className="max-w-xl text-sm text-slate-600 dark:text-slate-300">
-            Welcome to the French Village Conservation Woodland at 71 St. Pauls Lane—27 acres of protected forest and wetlands.
-            Walk the one-way trail to eight simple stops, from the exercise bar to the labyrinth, discover community stories along
-            the way, and return the same route as the forest soundtrack changes around you.
+            {t("home.intro")}
           </p>
 
           {/* Audio controls with inline error alerts */}
@@ -240,16 +233,14 @@ const Homepage = () => {
               <div className="flex items-start gap-2 rounded-lg border border-amber-400/50 bg-amber-50/90 p-3 text-xs text-amber-800 dark:border-amber-500/50 dark:bg-amber-900/90 dark:text-amber-200">
                 <IoWarningOutline className="mt-0.5 h-4 w-4 flex-shrink-0" />
                 <div className="flex-1">
-                  <p className="font-medium">Azure API Keys Required</p>
+                  <p className="font-medium">{t("audio.keysRequiredTitle")}</p>
                   <p className="mt-1">{alertMessage}</p>
-                  <p className="mt-2 text-xs">
-                    Configure in Netlify/Azure environment variables or create a <code className="rounded bg-amber-200/50 px-1 dark:bg-amber-800/50">.env</code> file for local development.
-                  </p>
+                  <p className="mt-2 text-xs">{t("audio.configureHint")}</p>
                 </div>
                 <button
                   onClick={() => setAlertMessage(null)}
                   className="flex-shrink-0 text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-                  aria-label="Dismiss"
+                  aria-label={t("audio.dismiss")}
                 >
                   <IoClose className="h-4 w-4" />
                 </button>
@@ -261,7 +252,7 @@ const Homepage = () => {
                 onClick={playHeroAudio}
                 className="inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold bg-emerald-600 text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Play Audio
+                {t("audio.play")}
               </button>
 
               <button
@@ -269,7 +260,7 @@ const Homepage = () => {
                 onClick={stopHeroAudio}
                 className="inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold bg-red-600 text-white shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Stop Audio
+                {t("audio.stop")}
               </button>
             </div>
           </div>
@@ -279,54 +270,54 @@ const Homepage = () => {
               to="/sitemap"
               className="flex items-center gap-2 rounded-full border border-white/40 bg-white/40 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/60 dark:border-slate-500/40 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/55"
             >
-              Trail Map
+              {t("home.links.trailMap")}
               <FaMapMarkedAlt />
             </Link>
             <Link
               to="/about"
               className="flex items-center gap-2 rounded-full border border-white/40 bg-white/40 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/60 dark:border-slate-500/40 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/55"
             >
-              About
+              {t("home.links.about")}
               <BsArrowUpRight />
             </Link>
             <Link
               to="/ecology"
               className="flex items-center gap-2 rounded-full border border-white/40 bg-white/40 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/60 dark:border-slate-500/40 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/55"
             >
-              Ecology
+              {t("home.links.ecology")}
               <BsArrowUpRight />
             </Link>
             <Link
               to="/contact"
               className="flex items-center gap-2 rounded-full border border-white/40 bg-white/40 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/60 dark:border-slate-500/40 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/55"
             >
-              Contact
+              {t("home.links.contact")}
               <BsArrowUpRight />
             </Link>
           </div>
         </div>
         <div className="flex items-center gap-4 md:flex-col">
           <figure className="mt-4 w-full overflow-hidden rounded-2xl border border-white/40 shadow-inner shadow-slate-900/10 dark:border-slate-700/60 md:mt-0 md:w-60 lg:w-72">
-            <img src={bannerImage} alt="Trail canopy" className="h-full w-full object-cover" />
+            <img src={bannerImage} alt={t("home.bannerAlt")} className="h-full w-full object-cover" />
           </figure>
         </div>
       </header>
 
       <section className="grid gap-4 md:grid-cols-3">
-        {coreTiles.map(({ icon, title, body, cta, to }) => (
-          <article key={title} className={`${glassPanel} flex flex-col gap-4`}>
+        {coreTiles.map(({ id, icon, to }) => (
+          <article key={id} className={`${glassPanel} flex flex-col gap-4`}>
             <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/40 bg-white/40 shadow-inner shadow-slate-900/10 dark:border-slate-500/40 dark:bg-slate-900/40">
               {icon}
             </div>
             <div className="space-y-2">
-              <h2 className="text-lg font-semibold">{title}</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300">{body}</p>
+              <h2 className="text-lg font-semibold">{t(`home.tiles.${id}.title`)}</h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300">{t(`home.tiles.${id}.body`)}</p>
             </div>
             <Link
               to={to}
               className="mt-auto inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:underline dark:text-slate-200"
             >
-              {cta}
+              {t(`home.tiles.${id}.cta`)}
               <BsArrowRightCircle />
             </Link>
           </article>
@@ -334,18 +325,13 @@ const Homepage = () => {
       </section>
 
       <section className={`${glassPanel} grid gap-4 md:grid-cols-4`}>
-        {[
-          { value: "1 km", label: "Gentle out-and-back trail with eight simple landmarks and easy grades." },
-          { value: "8 stops", label: "Exercise bar, wells, resting clearings, listening telephone, and the labyrinth." },
-          { value: "Coastal birch", label: "Yellow birch stands and mixed forest cared for through invasive removal." },
-          { value: "Volunteer-led", label: "Neighbours and partners look after the path, signage, and stewardship events." },
-        ].map(({ value, label }) => (
+        {["trail", "stops", "birch", "volunteers"].map((id) => (
           <div
-            key={value}
+            key={id}
             className="rounded-2xl border border-white/40 bg-white/40 p-4 text-center shadow-inner shadow-slate-900/5 backdrop-blur-2xl dark:border-slate-500/40 dark:bg-slate-900/40"
           >
-            <p className="text-xl font-semibold text-emerald-600 dark:text-emerald-300">{value}</p>
-            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300">{label}</p>
+            <p className="text-xl font-semibold text-emerald-600 dark:text-emerald-300">{t(`home.stats.${id}.value`)}</p>
+            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300">{t(`home.stats.${id}.label`)}</p>
           </div>
         ))}
       </section>
