@@ -367,5 +367,65 @@
       "Lungwort Lichen": "Lobaire pulmonaire",
       "Saffron Milkcap": "Lactaire délicieux"
     }
+  },
+  "map": {
+    "overview": "Vue d'ensemble",
+    "trail": "Sentier",
+    "northArrow": "Flèche du nord",
+    "locate": "Me localiser",
+    "stop": "Arrêter",
+    "inside": "Vous êtes dans l'aire de conservation du boisé.",
+    "near": "Vous êtes près de l'aire de conservation du boisé.",
+    "siteBorderTooltip": "Limite du site du boisé",
+    "audioAvailable": "🔊 Audio disponible",
+    "youAreHere": "Vous êtes ici",
+    "moveCloser": "Approchez-vous d'un arbre parlant (à moins de 3 m) pour activer l'audio.",
+    "playAudio": "▶ Écouter",
+    "stopAudio": "■ Arrêter",
+    "mapLegend": "Légende de la carte",
+    "trailLegend": "Légende du sentier",
+    "mainTrail": "Sentier principal",
+    "legend": {
+      "siteBorder": "Limite du site"
+    },
+    "areas": {
+      "rewildingArea": "Zone de réensauvagement",
+      "yellowBirchArea": "Zone de bouleaux jaunes",
+      "wetlandArea": "Milieu humide"
+    },
+    "pois": {
+      "trailhead": {
+        "name": "Départ du sentier",
+        "clickText": "Départ du sentier : commencez ici le sentier de 1 km, juste derrière l'église St. Paul's et à côté du stationnement."
+      },
+      "exercise-bar": {
+        "name": "Barre d'exercice",
+        "clickText": "Barre d'exercice : utilisez cette barre simple pour vous étirer ou essayer quelques tractions avant de descendre le sentier."
+      },
+      "farmhouse": {
+        "name": "Fondations de la ferme",
+        "clickText": "Fondations de la ferme : ces pierres basses marquent les restes d'une petite cabane en forêt qui servait autrefois à une famille d'agriculteurs."
+      },
+      "well1": {
+        "name": "Puits",
+        "clickText": "Puits : ce vieux puits fournissait de l'eau aux voisins de l'église et aux quelques familles qui vivaient à proximité."
+      },
+      "sitting": {
+        "name": "Aire de repos",
+        "clickText": "Aire de repos : une clairière tranquille pour se reposer, écouter le vent et profiter de la beauté de la nature."
+      },
+      "telephone-2": {
+        "name": "Deuxième téléphone",
+        "clickText": "Deuxième téléphone : cet arrêt paisible offre un téléphone en bois où les visiteurs peuvent parler à leurs êtres chers tout en se sentant proches de la nature."
+      },
+      "yellow-birch": {
+        "name": "Bouleau jaune côtier",
+        "clickText": "Bouleau jaune côtier : à partir d'ici, le sentier est rempli de bouleaux jaunes faciles à repérer grâce à leur écorce dorée."
+      },
+      "labyrinth": {
+        "name": "Labyrinthe",
+        "clickText": "Labyrinthe : un labyrinthe est un chemin sinueux que l'on suit jusqu'au centre pour trouver le calme."
+      }
+    }
   }
 }

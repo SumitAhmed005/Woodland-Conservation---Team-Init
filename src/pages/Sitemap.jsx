@@ -2,6 +2,7 @@
  * ================================================================================
  * File: Sitemap.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected map text, stop names and popups to translations
  * Description: Interactive trail map component with static view, geolocation tracking,
  * proximity-based audio triggers (Talking Trees), and real-time POI detection.
  * Uses Leaflet for map rendering and geospatial utilities for distance calculations.
@@ -24,6 +25,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import mapData from "../data/map.json";
+import { useLanguage } from "../locales/LanguageContext";
 import {
   pointInPolygon,
   distanceToPolygonMeters,
@@ -283,6 +285,15 @@ function sanitizePolygonCoords(poly) {
  * @returns {JSX.Element}
  */
 export default function Sitemap() {
+  const { t } = useLanguage();
+
+  // Stop names and popup text come from map.pois.<id> in the locale files when available,
+  // otherwise from map.json (so new stops still show up before they are translated)
+  const poiText = (poi, field) => {
+    const key = `map.pois.${poi.id}.${field}`;
+    const value = t(key);
+    return value === key ? poi[field] : value;
+  };
   // ============================================================================
   // State Management
   // ============================================================================
@@ -516,9 +527,9 @@ export default function Sitemap() {
     try {
       if (!userPos || !siteBorder.length) return null;
       const inside = pointInPolygon(userPos, siteBorder);
-      if (inside) return "You’re inside the Woodland Conservation Area.";
+      if (inside) return "map.inside";
       const dist = distanceToPolygonMeters(userPos, siteBorder);
-      if (dist <= 50) return "You’re near the Woodland Conservation Area.";
+      if (dist <= 50) return "map.near";
       return null;
     } catch (e) {
       console.warn("Inside/near calc error:", e);
@@ -642,19 +653,19 @@ export default function Sitemap() {
     );
 
     const mapLegendItems = [
-      { label: "Site Border", stroke: "#000", variant: "line" },
+      { label: "map.legend.siteBorder", stroke: "#000", variant: "line" },
       {
-        label: AREA_STYLES.rewildingArea.label,
+        label: "map.areas.rewildingArea",
         stroke: AREA_STYLES.rewildingArea.stroke,
         fill: AREA_STYLES.rewildingArea.fill,
       },
       {
-        label: AREA_STYLES.yellowBirchArea.label,
+        label: "map.areas.yellowBirchArea",
         stroke: AREA_STYLES.yellowBirchArea.stroke,
         fill: AREA_STYLES.yellowBirchArea.fill,
       },
       {
-        label: AREA_STYLES.wetlandArea.label,
+        label: "map.areas.wetlandArea",
         stroke: AREA_STYLES.wetlandArea.stroke,
         fill: AREA_STYLES.wetlandArea.fill,
       },
@@ -707,14 +718,14 @@ export default function Sitemap() {
               className={modeButtonClass(VIEW_MODES.OVERVIEW)}
               onClick={() => setViewMode(VIEW_MODES.OVERVIEW)}
             >
-              Overview
+              {t("map.overview")}
             </button>
             <button
               type="button"
               className={modeButtonClass(VIEW_MODES.TRAIL)}
               onClick={() => setViewMode(VIEW_MODES.TRAIL)}
             >
-              Trail
+              {t("map.trail")}
             </button>
           </div>
         </div>
@@ -722,7 +733,7 @@ export default function Sitemap() {
         {/* North arrow from /public/images */}
         <img
           src="/images/north-arrow.jpg"
-          alt="North arrow"
+          alt={t("map.northArrow")}
           style={{
             position: "absolute",
             right: 8,
@@ -738,10 +749,10 @@ export default function Sitemap() {
         {/* Controls */}
         <div style={controlPositionStyle}>
           <button onClick={startWatch} style={overlayButtonStyle}>
-            Locate
+            {t("map.locate")}
           </button>
           <button onClick={stopWatch} style={overlayDangerButtonStyle}>
-            Stop
+            {t("map.stop")}
           </button>
         </div>
 
@@ -762,7 +773,7 @@ export default function Sitemap() {
               boxShadow: "0 10px 30px rgba(15,23,42,0.18)",
             }}
           >
-            {insideMsg}
+            {t(insideMsg)}
           </div>
         )}
 
@@ -800,7 +811,7 @@ export default function Sitemap() {
                 pathOptions={{ color: "#111", weight: 3, opacity: 1 }}
               >
                 <Tooltip sticky direction="top">
-                  Woodland Site Border
+                  {t("map.siteBorderTooltip")}
                 </Tooltip>
               </Polyline>
             )}
@@ -819,7 +830,7 @@ export default function Sitemap() {
               }}
             >
               <Tooltip sticky direction="center">
-                {a.name}
+                {t(`map.areas.${a.id}`)}
               </Tooltip>
             </Polygon>
             ))}
@@ -842,16 +853,16 @@ export default function Sitemap() {
               <Popup>
                 <div style={{ minWidth: '150px' }}>
                   <div style={{ fontWeight: 600, marginBottom: '8px', fontSize: '14px' }}>
-                    {p.name}
+                    {poiText(p, "name")}
                   </div>
                   {p.clickText && (
                     <div style={{ fontSize: 12, color: "#666", lineHeight: '1.4' }}>
-                      {p.clickText}
+                      {poiText(p, "clickText")}
                     </div>
                   )}
                   {p.audioSrc && (
                     <div style={{ marginTop: '8px', fontSize: 11, color: "#888" }}>
-                      🔊 Audio available
+                      {t("map.audioAvailable")}
                     </div>
                   )}
                 </div>
@@ -863,7 +874,7 @@ export default function Sitemap() {
           {userPos && (
             <>
               <Marker position={[userPos.lat, userPos.lng]} icon={userLocationIcon}>
-                <Popup>You are here</Popup>
+                <Popup>{t("map.youAreHere")}</Popup>
               </Marker>
               <Circle
                 center={[userPos.lat, userPos.lng]}
@@ -898,13 +909,13 @@ export default function Sitemap() {
           >
             {!closestPoi3m && (
               <div style={{ fontSize: 14, color: "#111" }}>
-                Move closer to a Talking Tree (within 3 m) to enable audio.
+                {t("map.moveCloser")}
               </div>
             )}
             {closestPoi3m && (
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
                 <div style={{ fontSize: 14, color: "#111" }}>
-                  <strong>{closestPoi3m.poi.name}</strong>{" "}
+                  <strong>{poiText(closestPoi3m.poi, "name")}</strong>{" "}
                   <span style={{ color: "#6b7280" }}>
                     ({closestPoi3m.distance.toFixed(1)} m)
                   </span>
@@ -919,7 +930,7 @@ export default function Sitemap() {
                       borderRadius: 6,
                     }}
                   >
-                    ▶ Play Audio
+                    {t("map.playAudio")}
                   </button>
                 ) : (
                   <button
@@ -931,7 +942,7 @@ export default function Sitemap() {
                       borderRadius: 6,
                     }}
                   >
-                    ■ Stop
+                    {t("map.stopAudio")}
                   </button>
                 )}
               </div>
@@ -969,7 +980,7 @@ export default function Sitemap() {
                   color: legendTheme.headerColor,
                 }}
               >
-                Map Legend
+                {t("map.mapLegend")}
               </div>
               {mapLegendItems.map((item) => (
                 <div
@@ -1004,7 +1015,7 @@ export default function Sitemap() {
                       }}
                     />
                   )}
-                  {item.label}
+                  {t(item.label)}
                 </div>
               ))}
             </div>
@@ -1034,7 +1045,7 @@ export default function Sitemap() {
                   color: legendTheme.headerColor,
                 }}
               >
-                Trail Legend
+                {t("map.trailLegend")}
               </div>
               <div
                 style={{
@@ -1053,7 +1064,7 @@ export default function Sitemap() {
                     display: "inline-block",
                   }}
                 />
-                Main Trail
+                {t("map.mainTrail")}
               </div>
             </div>
           )}
