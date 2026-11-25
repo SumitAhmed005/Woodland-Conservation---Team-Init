@@ -308,5 +308,64 @@
       "contactLead": "Partagez vos idées d'intendance ou demandez une visite guidée sur notre",
       "contactLink": "page de contact"
     }
+  },
+  "ecology": {
+    "title": "Espèces que vous pourriez rencontrer",
+    "intro": "Explorez la flore, la faune et les champignons de St. Margaret's Bay. Utilisez le filtre ci-dessous pour choisir une catégorie, puis ouvrez une fiche pour voir la photo de référence.",
+    "category": "Catégorie",
+    "all": "Tout",
+    "categories": {
+      "flora": "Flore",
+      "fauna": "Faune",
+      "fungi": "Champignons"
+    },
+    "more": {
+      "flora": "Autres plantes",
+      "fauna": "Autres animaux",
+      "fungi": "Autres champignons"
+    },
+    "results": "Résultats",
+    "of": "sur",
+    "viewPhoto": "Voir la photo",
+    "closeDetails": "Fermer les détails",
+    "fieldNotes": "D'autres notes de terrain seront ajoutées dans une prochaine mise à jour.",
+    "sourceLabel": "Source :",
+    "species": {
+      "Apple Trees": "Pommiers",
+      "Black Spruce": "Épinette noire",
+      "Fern": "Fougère",
+      "Goldenrod": "Verge d'or",
+      "Maple": "Érable",
+      "Pine": "Pin",
+      "Pine Cherry": "Cerisier de Pennsylvanie",
+      "Spruce": "Épinette",
+      "Wild Pear": "Poirier sauvage",
+      "Yellow Coastal Birch": "Bouleau jaune côtier",
+      "Alder Flycatcher": "Moucherolle des aulnes",
+      "American Robin": "Merle d'Amérique",
+      "Atlantic Kill Fish": "Choquemort",
+      "Bald Eagle": "Pygargue à tête blanche",
+      "Beaver": "Castor",
+      "Black Bear": "Ours noir",
+      "Black-legged Tick": "Tique à pattes noires",
+      "Blue Jay": "Geai bleu",
+      "Bumblebee": "Bourdon",
+      "Canada Goose": "Bernache du Canada",
+      "Chickadee": "Mésange",
+      "Crow/Raven": "Corneille / Corbeau",
+      "Duck (Mallard Type)": "Canard (type colvert)",
+      "Monarch Butterfly": "Monarque",
+      "Moose": "Orignal",
+      "Raccoon": "Raton laveur",
+      "Rainbow Smelt": "Éperlan arc-en-ciel",
+      "Red Fox": "Renard roux",
+      "Red Squirrel": "Écureuil roux",
+      "Ruffed Grouse": "Gélinotte huppée",
+      "Snowshoe Hare": "Lièvre d'Amérique",
+      "White-tailed Deer": "Cerf de Virginie",
+      "Hoof Fungus": "Amadouvier",
+      "Lungwort Lichen": "Lobaire pulmonaire",
+      "Saffron Milkcap": "Lactaire délicieux"
+    }
   }
 }

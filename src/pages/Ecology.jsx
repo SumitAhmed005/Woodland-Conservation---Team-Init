@@ -2,6 +2,7 @@
  * ================================================================================
  * File: Ecology.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected all text to translations (species names, categories, labels)
  * Description: Ecology page displaying categorized species (flora, fauna, fungi)
  * with dynamic image loading, filtering, and modal detail views. Includes Azure
  * text-to-speech for accessibility.
@@ -13,6 +14,7 @@ import { createPortal } from 'react-dom';
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import ecologyData from '../data/ecologydata.json';
 import Footer from "../layout/Footer";
+import { useLanguage } from "../locales/LanguageContext";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================
@@ -126,14 +128,24 @@ const getSpeciesImage = (commonName) => {
  * @returns {JSX.Element}
  */
 const Ecology = () => {
+  const { t, lang } = useLanguage();
+
+  // Species names are translated when the locale file has them (ecology.species.<English name>);
+  // otherwise the English name is shown. The English name stays the ID used to find images.
+  const speciesName = (name) => {
+    const key = `ecology.species.${name}`;
+    const value = t(key);
+    return value === key ? name : value;
+  };
+  const categoryName = (key) => t(`ecology.categories.${key}`);
   // ============================================================================
   // State Management
   // ============================================================================
-  
+
   // Selected species for modal display
   const [selectedItem, setSelectedItem] = useState(null);
   // Current category filter (All, Flora, Fauna, Fungi)
-  const [categoryFilter, setCategoryFilter] = useState('All');
+  const [categoryFilter, setCategoryFilter] = useState('all');
   // Client-side flag for portal rendering (SSR safety)
   const [isClient, setIsClient] = useState(false);
   // Store scroll position before opening modal to restore after close
@@ -148,7 +160,7 @@ const Ecology = () => {
   // ============================================================================
   // Computed Values (Memoized)
   // ============================================================================
-  
+
   // Extract category keys from data once
   const categoryKeys = useMemo(
     () => Object.keys(ecologyData.species_by_category),
@@ -157,7 +169,7 @@ const Ecology = () => {
 
   // Build category options with "All" option first
   const categoryOptions = useMemo(
-    () => ['All', ...categoryKeys.map(formatCategoryLabel)],
+    () => ['all', ...categoryKeys],
     [categoryKeys],
   );
 
@@ -169,15 +181,16 @@ const Ecology = () => {
   const filteredData = useMemo(
     () =>
       allSpecies
-        .filter((item) => categoryFilter === 'All' || item.categoryLabel === categoryFilter)
+        .filter((item) => categoryFilter === 'all' || item.categoryKey === categoryFilter)
         .sort((a, b) => a.common_name.localeCompare(b.common_name)),
-    [allSpecies, categoryFilter],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [allSpecies, categoryFilter, lang],
   );
 
   // ============================================================================
   // Side Effects
   // ============================================================================
-  
+
   /**
    * Set client flag for portal rendering
    * Portals require DOM, so only render on client side (SSR safety)
@@ -256,7 +269,7 @@ const Ecology = () => {
   // ============================================================================
   // Event Handlers
   // ============================================================================
-  
+
   /**
    * Play header audio narration with error handling
    * Displays alert if API keys are missing or initialization failed
@@ -272,14 +285,14 @@ const Ecology = () => {
       // are properly set in environment variables (Netlify/Azure dashboard or .env file)
       // ============================================================================
       // Check if keys are missing or contain placeholder values
-      const hasPlaceholderKeys = !speechKey || !speechRegion || 
-        speechKey.toLowerCase().includes('keyhere') || 
+      const hasPlaceholderKeys = !speechKey || !speechRegion ||
+        speechKey.toLowerCase().includes('keyhere') ||
         speechKey.toLowerCase().includes('your_azure') ||
         speechRegion.toLowerCase().includes('regionhere') ||
         speechRegion.toLowerCase().includes('your_azure');
-      
+
       if (hasPlaceholderKeys) {
-        setAlertMessage("Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.");
+        setAlertMessage(t("audio.keysMissing"));
         setTimeout(() => setAlertMessage(null), 10000);
         return;
       }
@@ -290,7 +303,7 @@ const Ecology = () => {
       const synthesizer = synthesizerRef.current;
       const player = playerRef.current;
       if (!synthesizer) {
-        setAlertMessage("Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.");
+        setAlertMessage(t("audio.notInitialized"));
         setTimeout(() => setAlertMessage(null), 8000);
         return;
       }
@@ -311,14 +324,14 @@ const Ecology = () => {
         (err) => {
           console.error("Speech error:", err);
           // Show alert immediately when WebSocket/API error occurs
-          setAlertMessage("Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.");
+          setAlertMessage(t("audio.playFailed"));
           setTimeout(() => setAlertMessage(null), 10000);
           setIsSpeaking(false);
         }
       );
     } catch (error) {
       console.error("Error playing audio:", error);
-      setAlertMessage("An error occurred while trying to play audio. Please update your Azure Speech API keys.");
+      setAlertMessage(t("audio.genericError"));
       setTimeout(() => setAlertMessage(null), 8000);
     }
   };
@@ -350,11 +363,10 @@ const Ecology = () => {
       >
         <div>
           <h1 className="text-2xl font-semibold md:text-3xl">
-            Species you may encounter
+            {t("ecology.title")}
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-            Explore the flora, fauna, and fungi of St. Margaret&apos;s Bay. Use the filter below to
-            focus on a category, then open a card to view the reference photo.
+            {t("ecology.intro")}
           </p>
 
           {/* Alert message - shows when API keys are missing or invalid */}
@@ -362,22 +374,20 @@ const Ecology = () => {
             <div className="mb-4 flex items-start gap-2 rounded-lg border-2 border-amber-500/70 bg-amber-50/95 p-4 text-sm text-amber-900 shadow-lg dark:border-amber-400/70 dark:bg-amber-900/95 dark:text-amber-100 z-50">
               <IoWarningOutline className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-600 dark:text-amber-400" />
               <div className="flex-1">
-                <p className="font-semibold text-base">Azure API Keys Required</p>
+                <p className="font-semibold text-base">{t("audio.keysRequiredTitle")}</p>
                 <p className="mt-1.5 text-sm">{alertMessage}</p>
-                <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">
-                  Configure in Netlify/Azure environment variables or create a <code className="rounded bg-amber-200/60 px-1.5 py-0.5 dark:bg-amber-800/60">.env</code> file for local development.
-                </p>
+                <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">{t("audio.configureHint")}</p>
               </div>
               <button
                 onClick={() => setAlertMessage(null)}
                 className="flex-shrink-0 text-amber-700 hover:text-amber-900 dark:text-amber-300 dark:hover:text-amber-100 transition-colors"
-                aria-label="Dismiss"
+                aria-label={t("audio.dismiss")}
               >
                 <IoClose className="h-5 w-5" />
               </button>
             </div>
           )}
-          
+
           <div className="space-y-2 mt-4">
             <div className="flex gap-3">
               <button
@@ -385,7 +395,7 @@ const Ecology = () => {
                 onClick={playHeaderAudio}
                 className="px-4 py-2 rounded-full bg-emerald-600 text-white text-sm font-medium shadow hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Play Audio
+                {t("audio.play")}
               </button>
 
               <button
@@ -393,7 +403,7 @@ const Ecology = () => {
                 onClick={stopHeaderAudio}
                 className="px-4 py-2 rounded-full bg-red-600 text-white text-sm font-medium shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Stop Audio
+                {t("audio.stop")}
               </button>
             </div>
           </div>
@@ -404,20 +414,19 @@ const Ecology = () => {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="flex-1 space-y-2">
             <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-              Category
+              {t("ecology.category")}
             </label>
             <div className="flex flex-wrap gap-2">
               {categoryOptions.map((option) => (
                 <button
                   key={option}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition ${
-                    categoryFilter === option
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition ${categoryFilter === option
                       ? 'border-emerald-500 bg-emerald-500/90 text-white shadow-emerald-500/40'
                       : 'border-white/50 bg-white/70 text-slate-700 hover:bg-white/90 dark:border-slate-700/50 dark:bg-slate-900/60 dark:text-slate-200'
-                  }`}
+                    }`}
                   onClick={() => setCategoryFilter(option)}
                 >
-                  {option}
+                  {option === "all" ? t("ecology.all") : categoryName(option)}
                 </button>
               ))}
             </div>
@@ -426,12 +435,12 @@ const Ecology = () => {
           <div className="flex items-center justify-end rounded-2xl border border-white/40 bg-white/60 px-4 py-3 text-center shadow-inner shadow-slate-900/5 dark:border-slate-700/60 dark:bg-slate-900/60">
             <div>
               <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                Results
+                {t("ecology.results")}
               </p>
               <p className="text-lg font-semibold text-emerald-600 dark:text-emerald-300">
                 {filteredData.length}{' '}
                 <span className="text-xs text-slate-500 dark:text-slate-400">
-                  of {allSpecies.length}
+                  {t("ecology.of")} {allSpecies.length}
                 </span>
               </p>
             </div>
@@ -454,7 +463,7 @@ const Ecology = () => {
                   <>
                     <img
                       src={imagePath}
-                      alt={item.common_name}
+                      alt={speciesName(item.common_name)}
                       className="h-full w-full object-cover"
                       onError={(e) => {
                         e.target.style.display = 'none';
@@ -475,17 +484,17 @@ const Ecology = () => {
                 <div className="absolute inset-0 flex flex-col justify-between p-5">
                   <div className="flex justify-end">
                     <span className="rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm shadow-lg shadow-black/30">
-                      {item.categoryLabel}
+                      {categoryName(item.categoryKey)}
                     </span>
                   </div>
 
                   <div className="text-center text-white drop-shadow-lg">
-                    <h3 className="text-2xl font-semibold">{item.common_name}</h3>
+                    <h3 className="text-2xl font-semibold">{speciesName(item.common_name)}</h3>
                   </div>
 
                   <div className="flex justify-center">
                     <span className="rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs text-white backdrop-blur-sm">
-                      View photo
+                      {t("ecology.viewPhoto")}
                     </span>
                   </div>
                 </div>
@@ -497,105 +506,105 @@ const Ecology = () => {
 
       {isClient && selectedItem
         ? createPortal(
-            (() => {
-              const selectedImage = getSpeciesImage(selectedItem.common_name);
-              const relatedSpecies =
-                ecologyData.species_by_category[selectedItem.categoryKey]?.filter(
-                  (name) => name !== selectedItem.common_name,
-                ) ?? [];
+          (() => {
+            const selectedImage = getSpeciesImage(selectedItem.common_name);
+            const relatedSpecies =
+              ecologyData.species_by_category[selectedItem.categoryKey]?.filter(
+                (name) => name !== selectedItem.common_name,
+              ) ?? [];
 
-              const handleOverlayClick = (event) => {
-                if (event.target === event.currentTarget) {
-                  closeModal();
-                }
-              };
+            const handleOverlayClick = (event) => {
+              if (event.target === event.currentTarget) {
+                closeModal();
+              }
+            };
 
-              return (
+            return (
+              <div
+                className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-slate-900/70 p-4 backdrop-blur-lg"
+                onClick={handleOverlayClick}
+              >
                 <div
-                  className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-slate-900/70 p-4 backdrop-blur-lg"
-                  onClick={handleOverlayClick}
+                  className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-white/50 bg-white/85 p-6 shadow-2xl shadow-slate-900/40 backdrop-blur-2xl dark:border-slate-700/60 dark:bg-slate-900/90"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="ecology-modal-title"
                 >
-                  <div
-                    className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-white/50 bg-white/85 p-6 shadow-2xl shadow-slate-900/40 backdrop-blur-2xl dark:border-slate-700/60 dark:bg-slate-900/90"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-labelledby="ecology-modal-title"
+                  <button
+                    className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-white/95 text-lg font-bold text-slate-600 shadow-md shadow-slate-900/15 hover:bg-white dark:border-slate-600/60 dark:bg-slate-800/80 dark:text-slate-200"
+                    onClick={closeModal}
+                    aria-label={t("ecology.closeDetails")}
                   >
-                    <button
-                      className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-white/95 text-lg font-bold text-slate-600 shadow-md shadow-slate-900/15 hover:bg-white dark:border-slate-600/60 dark:bg-slate-800/80 dark:text-slate-200"
-                      onClick={closeModal}
-                      aria-label="Close details"
-                    >
-                      ×
-                    </button>
+                    ×
+                  </button>
 
-                    <div className="relative mb-4 h-56 w-full overflow-hidden rounded-2xl">
-                      {selectedImage ? (
-                        <>
-                          <img
-                            src={selectedImage}
-                            alt={selectedItem.common_name}
-                            className="h-full w-full object-cover"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              const fallback = e.target.nextElementSibling;
-                              if (fallback) {
-                                fallback.style.display = 'flex';
-                              }
-                            }}
-                          />
-                          <div className="hidden absolute inset-0 bg-gradient-to-br from-emerald-400 to-sky-500 dark:from-emerald-600 dark:to-sky-700" />
-                        </>
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-sky-500 dark:from-emerald-600 dark:to-sky-700" />
-                      )}
+                  <div className="relative mb-4 h-56 w-full overflow-hidden rounded-2xl">
+                    {selectedImage ? (
+                      <>
+                        <img
+                          src={selectedImage}
+                          alt={speciesName(selectedItem.common_name)}
+                          className="h-full w-full object-cover"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            const fallback = e.target.nextElementSibling;
+                            if (fallback) {
+                              fallback.style.display = 'flex';
+                            }
+                          }}
+                        />
+                        <div className="hidden absolute inset-0 bg-gradient-to-br from-emerald-400 to-sky-500 dark:from-emerald-600 dark:to-sky-700" />
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-sky-500 dark:from-emerald-600 dark:to-sky-700" />
+                    )}
 
-                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/70 via-black/25 to-transparent text-center text-white drop-shadow-lg">
-                        <h2 id="ecology-modal-title" className="text-2xl font-semibold">
-                          {selectedItem.common_name}
-                        </h2>
-                        <p className="mt-1 text-lg">{selectedItem.categoryLabel}</p>
-                      </div>
-                    </div>
-
-                    <div className="max-h-[70vh] space-y-4 overflow-y-auto pr-1 text-sm text-slate-700 dark:text-slate-300">
-                      <div>
-                        <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">
-                          Category
-                        </h3>
-                        <p>{selectedItem.categoryLabel}</p>
-                      </div>
-
-                      {relatedSpecies.length > 0 ? (
-                        <div>
-                          <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">
-                            More {selectedItem.categoryLabel.toLowerCase()}
-                          </h3>
-                          <ul className="list-disc space-y-1 pl-5 text-xs text-slate-600 dark:text-slate-400">
-                            {relatedSpecies.map((name) => (
-                              <li key={name}>{name}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-
-                      <p className="text-xs text-slate-500 dark:text-slate-400">
-                        Additional field notes will be added in a future update.
-                      </p>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/70 via-black/25 to-transparent text-center text-white drop-shadow-lg">
+                      <h2 id="ecology-modal-title" className="text-2xl font-semibold">
+                        {speciesName(selectedItem.common_name)}
+                      </h2>
+                      <p className="mt-1 text-lg">{categoryName(selectedItem.categoryKey)}</p>
                     </div>
                   </div>
+
+                  <div className="max-h-[70vh] space-y-4 overflow-y-auto pr-1 text-sm text-slate-700 dark:text-slate-300">
+                    <div>
+                      <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">
+                        {t("ecology.category")}
+                      </h3>
+                      <p>{categoryName(selectedItem.categoryKey)}</p>
+                    </div>
+
+                    {relatedSpecies.length > 0 ? (
+                      <div>
+                        <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">
+                          {t(`ecology.more.${selectedItem.categoryKey}`)}
+                        </h3>
+                        <ul className="list-disc space-y-1 pl-5 text-xs text-slate-600 dark:text-slate-400">
+                          {relatedSpecies.map((name) => (
+                            <li key={name}>{speciesName(name)}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      {t("ecology.fieldNotes")}
+                    </p>
+                  </div>
                 </div>
-              );
-            })(),
-            document.body,
-          )
+              </div>
+            );
+          })(),
+          document.body,
+        )
         : null}
 
       {/* Source Attribution */}
       <section className={`${glassPanel} p-6`}>
         <div className="border-t border-slate-300/50 pt-4 dark:border-slate-600/50">
           <p className="text-xs text-slate-600 dark:text-slate-400">
-            <strong className="text-slate-700 dark:text-slate-300">Source:</strong> Natural History of the French Village Conservation Woodland. A Report to the French Village Conservation Woodland Committee by David Patriquin, Jess Lewis, Livy Fraser, Liam Holwell, Rohan Kariyawansa. Nov. 2021
+            <strong className="text-slate-700 dark:text-slate-300">{t("ecology.sourceLabel")}</strong> Natural History of the French Village Conservation Woodland. A Report to the French Village Conservation Woodland Committee by David Patriquin, Jess Lewis, Livy Fraser, Liam Holwell, Rohan Kariyawansa. Nov. 2021
           </p>
         </div>
       </section>

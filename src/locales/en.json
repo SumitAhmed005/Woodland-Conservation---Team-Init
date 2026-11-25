@@ -308,5 +308,27 @@
       "contactLead": "Share stewardship ideas or request a guided tour through our",
       "contactLink": "contact page"
     }
+  },
+  "ecology": {
+    "title": "Species you may encounter",
+    "intro": "Explore the flora, fauna, and fungi of St. Margaret's Bay. Use the filter below to focus on a category, then open a card to view the reference photo.",
+    "category": "Category",
+    "all": "All",
+    "categories": {
+      "flora": "Flora",
+      "fauna": "Fauna",
+      "fungi": "Fungi"
+    },
+    "more": {
+      "flora": "More flora",
+      "fauna": "More fauna",
+      "fungi": "More fungi"
+    },
+    "results": "Results",
+    "of": "of",
+    "viewPhoto": "View photo",
+    "closeDetails": "Close details",
+    "fieldNotes": "Additional field notes will be added in a future update.",
+    "sourceLabel": "Source:"
   }
 }
