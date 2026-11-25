@@ -73,7 +73,8 @@
     "playFailed": "Impossible de lire l'audio. Vos clés de l'API Azure Speech sont peut-être invalides ou manquantes. Veuillez mettre à jour VITE_AZURE_SPEECH_KEY et VITE_AZURE_REGION avec des clés valides dans vos variables d'environnement (tableau de bord Netlify/Azure) ou dans le fichier .env.",
     "genericError": "Une erreur s'est produite lors de la lecture de l'audio. Veuillez mettre à jour vos clés de l'API Azure Speech.",
     "configureHint": "Configurez-les dans les variables d'environnement Netlify/Azure ou créez un fichier .env pour le développement local.",
-    "dismiss": "Fermer"
+    "dismiss": "Fermer",
+    "playSection": "Écouter cette section"
   },
   "footer": {
     "planTitle": "Planifiez votre visite",
@@ -193,5 +194,119 @@
       }
     },
     "closing": "Ce lieu n'est pas seulement pour aujourd'hui. Il est pour l'avenir. L'idée est de protéger une forêt vivante en Nouvelle-Écosse afin que les familles, les visiteurs, les animaux et les plantes puissent tous la partager avec respect. L'inhumation naturelle fait partie de cette promesse."
+  },
+  "about": {
+    "eyebrow": "À propos du boisé de conservation",
+    "title": "Le boisé de conservation de French Village est la famille forestière de l'église St. Paul's.",
+    "intro": "Quittez St. Paul's Lane et vous voilà aussitôt sur un terrain offert par l'église anglicane St. Paul's à toute la communauté. Les 27 acres s'étendent sur près de deux kilomètres, du cimetière patrimonial de l'église jusqu'au lac Brine, avec des milieux humides, des bosquets de bouleaux jaunes et des arrêts le long du sentier qui attirent aussi bien les visiteurs curieux que les amoureux de la nature de toujours.",
+    "trailheadLabel": "Départ du sentier :",
+    "trailheadText": "Derrière l'église anglicane St. Paul's, 71 St. Pauls Lane, French Village",
+    "links": {
+      "trailMap": "Carte du sentier",
+      "ecology": "Écologie",
+      "gallery": "Galerie",
+      "contact": "Contact",
+      "naturalBurial": "Inhumation naturelle"
+    },
+    "churchAlt": "Croquis historique de l'église anglicane St. Paul's",
+    "mission": {
+      "gifted": {
+        "title": "Un don de St. Paul's",
+        "text": "Le terrain derrière l'église anglicane St. Paul's a été donné pour que la communauté puisse explorer 27 acres de forêt pour toujours."
+      },
+      "lake": {
+        "title": "Gardien du lac Brine",
+        "text": "Des milieux humides et un ruisseau sinueux protègent le lac Brine et préservent l'habitat des oiseaux, des castors et des libellules."
+      },
+      "volunteer": {
+        "title": "Porté par des bénévoles",
+        "text": "Des voisins organisent des journées d'entretien du sentier, animent des chasses au trésor et guident les visiteurs dans les classes en forêt."
+      },
+      "explore": {
+        "title": "Facile à explorer",
+        "text": "Une boucle conviviale part juste derrière l'église et passe par des aires de jeu, des repères d'histoires et des coins de réflexion tranquilles."
+      }
+    },
+    "why": {
+      "title": "Pourquoi ce boisé est important",
+      "p1": "Le boisé de conservation de French Village est à la fois une classe vivante, un terrain de jeu sans balançoires et un lieu de mémoire paisible. Des bénévoles prennent soin de la forêt pour que les voisins puissent découvrir les lichens, que les familles puissent marcher ensemble et que les aînés puissent trouver des lieux de recueillement tranquilles.",
+      "p2": "Une pierre commémorative au bord du rivage rend hommage à la famille Brine, dont le nom perdure grâce au lac Brine et aux traditions qu'elle a contribué à établir à French Village.",
+      "p3": "Le rapport d'information n° 4 du Conseil régional d'Halifax (9 mai 2023) a souligné la valeur écologique du site et appuyé la demande d'inscription du boisé au registre des aires protégées de la Nouvelle-Écosse. Il a confirmé la voie vers une servitude de conservation qui honore le don de l'église.",
+      "p4": "Avec des partenaires comme les écoles locales, des fiducies de conservation et la Green Burial Society of Canada, le boisé se prépare à devenir le premier cimetière de conservation urbain certifié pour l'inhumation écologique au Canada, tout en continuant d'accueillir les aventures du quotidien."
+    },
+    "donationAlt": "Pierres historiques marquant le don de conservation",
+    "timelineTitle": "Les étapes de notre histoire",
+    "timelineIntro": "Suivez les jalons qui ont fait passer le boisé d'un sentier d'église à un trésor communautaire protégé :",
+    "timeline": {
+      "roots": {
+        "year": "Avant 1900",
+        "title": "Racines de l'église et de la communauté",
+        "body": "Les familles se réunissaient à l'église anglicane St. Paul's et prenaient soin des bois à côté du cimetière historique."
+      },
+      "donation": {
+        "year": "Terrain offert",
+        "title": "Don de l'église",
+        "body": "La congrégation a réservé 27 acres pour les loisirs communautaires, la réflexion et la conservation future."
+      },
+      "motion": {
+        "year": "Févr. 2022",
+        "title": "Motion du conseil",
+        "body": "Le Conseil régional d'Halifax a demandé un rapport invitant la Province à protéger le boisé de conservation de French Village."
+      },
+      "report": {
+        "year": "Mai 2023",
+        "title": "Rapport sur les aires protégées",
+        "body": "Le conseil a examiné le rapport sur le registre des aires protégées, qui confirme la valeur écologique du site et la voie vers une servitude de conservation."
+      },
+      "today": {
+        "year": "Aujourd'hui",
+        "title": "Prochaines étapes",
+        "body": "Bénévoles et partenaires finalisent les ententes de conservation et accueillent des activités pour que tout le monde puisse profiter des sentiers."
+      }
+    },
+    "storiesTitle": "Choisissez votre aventure en forêt",
+    "storiesIntro": "Chaque arrêt le long de la boucle ressemble à une page de livre d'histoires. Servez-vous de ces images pour inspirer des chasses au trésor ou planifier des visites thématiques pour des classes, des clubs ou des sorties en famille.",
+    "stories": {
+      "warmup": {
+        "title": "Échauffement au départ du sentier",
+        "caption": "Commencez par quelques étirements doux à la barre d'exercice, conçue pour tous les âges, avant de parcourir la boucle d'un kilomètre."
+      },
+      "labyrinth": {
+        "title": "Le labyrinthe des pas tranquilles",
+        "caption": "Parcourez lentement le chemin en spirale, faites une pause au centre et laissez la brise porter les sons de la forêt autour de vous."
+      },
+      "telephone": {
+        "title": "Le téléphone d'écoute",
+        "caption": "Prenez un moment au téléphone du boisé pour adresser un doux message aux êtres chers dont on se souvient parmi les arbres."
+      },
+      "farmhouse": {
+        "title": "Les fondations de la ferme",
+        "caption": "Imaginez la vie dans la clairière où se dressait la ferme d'origine et découvrez les tâches quotidiennes d'il y a 100 ans."
+      },
+      "wells": {
+        "title": "Les puits historiques",
+        "caption": "Des puits de pierre qui fournissaient autrefois de l'eau fraîche se trouvent maintenant dans des clairières bordées de fougères, avec des histoires sur les familles qui y puisaient."
+      },
+      "neighbours": {
+        "title": "Rencontrez les voisins du boisé",
+        "caption": "Découvrez les troncs moussus, les lichens et la faune qui dépend de cette forêt, puis poursuivez votre apprentissage dans notre guide écologique."
+      }
+    },
+    "promptsTitle": "Idées de découvertes sur le sentier",
+    "promptsIntro": "Faites de chaque visite une petite mission et partagez vos découvertes avec vos voisins et vos amis.",
+    "prompts": {
+      "rings": "Comptez les cernes du tronc d'exercice et imaginez les saisons qu'a connues cet arbre.",
+      "birch": "Repérez l'écorce de bouleau jaune qui s'enroule comme des rubans de papier et comparez sa texture aux feuilles voisines.",
+      "telephone": "Arrêtez-vous près du poteau téléphonique du boisé et laissez un message silencieux pour une personne qui vous manque.",
+      "lookout": "Respirez profondément au belvédère du lac Brine et dessinez les nuages qui se reflètent sur l'eau."
+    },
+    "lakeAlt": "Belvédère du lac Brine au bout du sentier",
+    "promise": {
+      "title": "Comment nous tenons notre promesse",
+      "p1": "Les bénévoles collaborent avec le personnel de la Municipalité régionale d'Halifax, des partenaires de conservation et la Green Burial Society of Canada pour protéger le boisé grâce à une servitude de conservation. Cet engagement juridique garde le terrain à l'état naturel tout en soutenant la certification pour l'inhumation écologique.",
+      "p2": "Vous voulez aider? Participez aux journées mensuelles d'entretien du sentier, offrez des leçons sur la nature ou soutenez le fonds de conservation. Chaque heure passée sur le sentier aide le boisé à prospérer pour les générations futures.",
+      "contactLead": "Partagez vos idées d'intendance ou demandez une visite guidée sur notre",
+      "contactLink": "page de contact"
+    }
   }
 }

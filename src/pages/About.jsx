@@ -2,6 +2,7 @@
  * ================================================================================
  * File: About.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected all text to translations, fixed Natural Burial link
  * Description: About page displaying site history, mission highlights, timeline,
  * and photo stories with integrated Azure text-to-speech for accessibility.
  * ================================================================================
@@ -30,6 +31,7 @@ import {
 import { BsArrowUpRight } from "react-icons/bs";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import Footer from "../layout/Footer";
+import { useLanguage } from "../locales/LanguageContext";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================
@@ -40,103 +42,103 @@ import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 const glassPanel =
   "rounded-3xl border border-white/40 bg-white/60 p-6 shadow-lg shadow-slate-900/10 backdrop-blur-2xl transition-colors duration-300 dark:border-slate-700/60 dark:bg-slate-900/55";
 
-// Mission highlight cards displayed in hero section
+// Mission highlight cards - title/text are translation keys (see about.mission in the locale files)
 const missionHighlights = [
   {
     icon: <FaTree className="text-emerald-500 text-3xl" />,
-    title: "Gifted by St. Paul’s",
-    text: "The land behind St. Paul’s Anglican Church was donated so the community could explore 27 acres of forest forever.",
+    title: "about.mission.gifted.title",
+    text: "about.mission.gifted.text",
   },
   {
     icon: <FaWater className="text-sky-500 text-3xl" />,
-    title: "Brine Lake Guardian",
-    text: "Wetlands and a winding stream protect Brine Lake, keeping homes for birds, beavers, and dragonflies safe and splashy.",
+    title: "about.mission.lake.title",
+    text: "about.mission.lake.text",
   },
   {
     icon: <FaHandsHelping className="text-rose-500 text-3xl" />,
-    title: "Volunteer Powered",
-    text: "Neighbours plan trail care days, lead playful scavenger hunts, and guide visitors through the forest classrooms.",
+    title: "about.mission.volunteer.title",
+    text: "about.mission.volunteer.text",
   },
   {
     icon: <FaMapMarkedAlt className="text-amber-500 text-3xl" />,
-    title: "Easy to Explore",
-    text: "A friendly loop starts right behind the church and winds past play stops, story markers, and quiet reflection spots.",
+    title: "about.mission.explore.title",
+    text: "about.mission.explore.text",
   },
 ];
 
-// Interactive discovery prompts for visitors
+// Interactive discovery prompts - translation keys (see about.prompts)
 const trailDiscoveryIdeas = [
-  "Count the rings on the exercise log and imagine the seasons this tree has known.",
-  "Spot yellow birch bark curling like paper ribbons and match the texture to nearby leaves.",
-  "Pause by the woodland telephone post and offer a quiet message for someone you miss.",
-  "Take a deep breath at the Brine Lake lookout and sketch the clouds reflecting on the water.",
+  "about.prompts.rings",
+  "about.prompts.birch",
+  "about.prompts.telephone",
+  "about.prompts.lookout",
 ];
 
 const timeline = [
   {
-    year: "Before 1900",
-    title: "Church & Community Roots",
-    body: "Families gathered at St. Paul’s Anglican Church and cared for the woods beside the historic cemetery.",
+    year: "about.timeline.roots.year",
+    title: "about.timeline.roots.title",
+    body: "about.timeline.roots.body",
   },
   {
-    year: "Gifted Land",
-    title: "Church Donation",
-    body: "The congregation set aside 27 acres for community recreation, reflection, and future conservation.",
+    year: "about.timeline.donation.year",
+    title: "about.timeline.donation.title",
+    body: "about.timeline.donation.body",
   },
   {
-    year: "Feb 2022",
-    title: "Council Motion",
-    body: "Halifax Regional Council requested a report asking the Province to protect the French Village Conservation Woodland.",
+    year: "about.timeline.motion.year",
+    title: "about.timeline.motion.title",
+    body: "about.timeline.motion.body",
   },
   {
-    year: "May 2023",
-    title: "Protected Areas Report",
-    body: "Council reviewed the Protected Areas Registry report confirming the site’s ecological value and path to a conservation easement.",
+    year: "about.timeline.report.year",
+    title: "about.timeline.report.title",
+    body: "about.timeline.report.body",
   },
   {
-    year: "Today",
-    title: "Next Steps",
-    body: "Volunteers and partners are finalizing conservation agreements and welcoming programming so everyone can enjoy the trails.",
+    year: "about.timeline.today.year",
+    title: "about.timeline.today.title",
+    body: "about.timeline.today.body",
   },
 ];
 
-// Photo story cards with images and captions
+// Photo story cards - title/caption are translation keys; link picks which button to show
 const photoStories = [
   {
     image: exerciseImage,
-    title: "Trailhead Warm-Up",
-    caption:
-      "Start with gentle stretches at the exercise bar designed for all ages to loosen up before the kilometre loop.",
+    title: "about.stories.warmup.title",
+    link: "map",
+    caption: "about.stories.warmup.caption",
   },
   {
     image: labyrinthImage,
-    title: "Labyrinth of Quiet Steps",
-    caption:
-      "Walk the spiral path slowly, pause at the centre, and let the breeze carry the sounds of the woods around you.",
+    title: "about.stories.labyrinth.title",
+    link: "map",
+    caption: "about.stories.labyrinth.caption",
   },
   {
     image: telephoneImage,
-    title: "Listening Telephone",
-    caption:
-      "Take a moment at the woodland telephone to share a gentle message with loved ones who are remembered among the trees.",
+    title: "about.stories.telephone.title",
+    link: "map",
+    caption: "about.stories.telephone.caption",
   },
   {
     image: farmhouseImage,
-    title: "Farmhouse Foundations",
-    caption:
-      "Imagine life in the clearing where the original farmhouse stood and learn about daily chores from 100 years ago.",
+    title: "about.stories.farmhouse.title",
+    link: "map",
+    caption: "about.stories.farmhouse.caption",
   },
   {
     image: historicWellImage,
-    title: "Historic Wells",
-    caption:
-      "Stone wells that once provided fresh water now sit among fern-lined clearings with stories about the families who drew from them.",
+    title: "about.stories.wells.title",
+    link: "map",
+    caption: "about.stories.wells.caption",
   },
   {
     image: ecologyImage,
-    title: "Meet the Woodland Neighbours",
-    caption:
-      "Discover mossy logs, lichens, and the wildlife who depend on this forest—then continue learning in our ecology guide.",
+    title: "about.stories.neighbours.title",
+    link: "ecology",
+    caption: "about.stories.neighbours.caption",
   },
 ];
 
@@ -149,6 +151,7 @@ const photoStories = [
  * @returns {JSX.Element}
  */
 export default function About() {
+  const { t } = useLanguage();
   // ============================================================================
   // State Management
   // ============================================================================
@@ -232,7 +235,7 @@ export default function About() {
         speechRegion.toLowerCase().includes('your_azure');
       
       if (hasPlaceholderKeys) {
-        setAlertMessage("Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.");
+        setAlertMessage(t("audio.keysMissing"));
         setTimeout(() => setAlertMessage(null), 10000);
         return;
       }
@@ -243,7 +246,7 @@ export default function About() {
       const synthesizer = synthesizerRef.current;
       const player = playerRef.current;
       if (!synthesizer || !text) {
-        setAlertMessage("Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.");
+        setAlertMessage(t("audio.notInitialized"));
         setTimeout(() => setAlertMessage(null), 8000);
         return;
       }
@@ -261,14 +264,14 @@ export default function About() {
         (err) => {
           console.error("Speech error:", err);
           // Show alert immediately when WebSocket/API error occurs
-          setAlertMessage("Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.");
+          setAlertMessage(t("audio.playFailed"));
           setTimeout(() => setAlertMessage(null), 10000);
           setIsSpeaking(false);
         }
       );
     } catch (error) {
       console.error("Error playing audio:", error);
-      setAlertMessage("An error occurred while trying to play audio. Please update your Azure Speech API keys.");
+      setAlertMessage(t("audio.genericError"));
       setTimeout(() => setAlertMessage(null), 8000);
     }
   };
@@ -295,24 +298,17 @@ export default function About() {
       >
         <div className="flex-1 space-y-5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-300">
-            About the Conservation Woodland
+            {t("about.eyebrow")}
           </p>
           <h1 className="text-2xl font-semibold md:text-3xl">
-            French Village Conservation Woodland is the forest family behind
-            St. Paul&apos;s Church.
+            {t("about.title")}
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            Step off St. Paul&apos;s Lane and you&apos;re instantly on land
-            gifted by St. Paul&apos;s Anglican Church for the whole community.
-            The 27 acres stretch almost two kilometres from the heritage
-            churchyard to Brine Lake with wetlands, yellow birch groves, and
-            trail stops that invite curious visitors and lifelong nature lovers
-            alike.
+            {t("about.intro")}
           </p>
           <div className="grid gap-2 text-xs text-slate-500 dark:text-slate-400 sm:grid-cols-2">
             <div>
-              <strong>Trailhead:</strong> Behind St. Paul&apos;s Anglican
-              Church, 71 St. Pauls Lane, French Village
+              <strong>{t("about.trailheadLabel")}</strong> {t("about.trailheadText")}
             </div>
           </div>
 
@@ -322,16 +318,14 @@ export default function About() {
               <div className="flex items-start gap-2 rounded-lg border border-amber-400/50 bg-amber-50/90 p-3 text-xs text-amber-800 dark:border-amber-500/50 dark:bg-amber-900/90 dark:text-amber-200">
                 <IoWarningOutline className="mt-0.5 h-4 w-4 flex-shrink-0" />
                 <div className="flex-1">
-                  <p className="font-medium">Azure API Keys Required</p>
+                  <p className="font-medium">{t("audio.keysRequiredTitle")}</p>
                   <p className="mt-1">{alertMessage}</p>
-                  <p className="mt-2 text-xs">
-                    Configure in Netlify/Azure environment variables or create a <code className="rounded bg-amber-200/50 px-1 dark:bg-amber-800/50">.env</code> file for local development.
-                  </p>
+                  <p className="mt-2 text-xs">{t("audio.configureHint")}</p>
                 </div>
                 <button
                   onClick={() => setAlertMessage(null)}
                   className="flex-shrink-0 text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-                  aria-label="Dismiss"
+                  aria-label={t("audio.dismiss")}
                 >
                   <IoClose className="h-4 w-4" />
                 </button>
@@ -352,7 +346,7 @@ export default function About() {
                 }
                 className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-emerald-600 text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Play Audio
+                {t("audio.play")}
               </button>
 
               <button
@@ -360,7 +354,7 @@ export default function About() {
                 onClick={stopSpeech}
                 className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-red-600 text-white shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Stop Audio
+                {t("audio.stop")}
               </button>
             </div>
           </div>
@@ -370,28 +364,28 @@ export default function About() {
               to="/sitemap"
               className="flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-900/60 dark:text-slate-200"
             >
-              Trail Map
+              {t("about.links.trailMap")}
               <FaMapMarkedAlt />
             </Link>
             <Link
               to="/ecology"
               className="flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-900/60 dark:text-slate-200"
             >
-              Ecology
+              {t("about.links.ecology")}
               <BsArrowUpRight />
             </Link>
             <Link
               to="/gallery"
               className="flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-900/60 dark:text-slate-200"
             >
-              Gallery
+              {t("about.links.gallery")}
               <BsArrowUpRight />
             </Link>
             <Link
               to="/contact"
               className="flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-900/60 dark:text-slate-200"
             >
-              Contact
+              {t("about.links.contact")}
               <BsArrowUpRight />
             </Link>
           </div>
@@ -400,7 +394,7 @@ export default function About() {
           <figure className="mt-6 w-full overflow-hidden rounded-3xl border border-white/40 shadow-inner shadow-slate-900/10 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/10 dark:border-slate-700/60 sm:mx-auto md:mt-8 lg:mt-0 lg:w-[28rem] xl:w-[32rem]">
             <img
               src={churchSketchImage}
-              alt="Historic sketch of St. Paul's Anglican Church"
+              alt={t("about.churchAlt")}
               className="h-full w-full object-cover"
             />
           </figure>
@@ -417,10 +411,10 @@ export default function About() {
               {icon}
             </div>
             <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-              {title}
+              {t(title)}
             </h2>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              {text}
+              {t(text)}
             </p>
           </article>
         ))}
@@ -429,31 +423,18 @@ export default function About() {
       {/* WHY THIS WOODLAND MATTERS */}
       <section className={`${glassPanel} grid gap-6 md:grid-cols-2`}>
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Why this woodland matters</h2>
+          <h2 className="text-2xl font-semibold">{t("about.why.title")}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            The French Village Conservation Woodland is a living classroom, a
-            playground without swings, and a peaceful memorial all at once.
-            Volunteers care for the forest so neighbours can learn about
-            lichens, families can walk together, and elders can find quiet
-            remembering spaces.
+            {t("about.why.p1")}
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            A memorial stone beside the shoreline honours the Brine family,
-            whose name lives on through Brine Lake and the traditions they
-            helped establish in French Village.
+            {t("about.why.p2")}
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            Halifax Regional Council’s Item 4 Information Report (May 9, 2023)
-            celebrated the site’s ecological value and supported the request to
-            include the woodland in Nova Scotia’s Protected Areas Registry. It
-            confirmed the path toward a conservation easement that honours the
-            church’s donation.
+            {t("about.why.p3")}
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            With partners like local schools, nature trusts, and the Green
-            Burial Society of Canada, the woodland is preparing to become the
-            first urban certified green burial conservation cemetery in
-            Canada—while still welcoming everyday adventures.
+            {t("about.why.p4")}
           </p>
 
           {/* AUDIO CONTROLS: WHY THIS WOODLAND MATTERS */}
@@ -476,7 +457,7 @@ export default function About() {
               }
               className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-emerald-600 text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
             >
-              Play Section Audio
+              {t("audio.playSection")}
             </button>
 
             <button
@@ -484,16 +465,16 @@ export default function About() {
               onClick={stopSpeech}
               className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-red-600 text-white shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
             >
-              Stop Audio
-            </button>
+                {t("audio.stop")}
+              </button>
           </div>
 
           <div className="pt-2">
             <Link
-              to="#natural-burial"
+              to="/natural-burial"
               className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-5 py-2 text-xs font-semibold text-slate-700 shadow-md shadow-slate-900/10 transition hover:bg-white/90 dark:border-slate-600/60 dark:bg-slate-900/60 dark:text-slate-200"
             >
-              Natural Burial
+              {t("about.links.naturalBurial")}
               <BsArrowUpRight />
             </Link>
           </div>
@@ -501,17 +482,16 @@ export default function About() {
         <figure className="overflow-hidden rounded-2xl border border-white/40 shadow-inner shadow-slate-900/10 dark:border-slate-700/60">
           <img
             src={donationImage}
-            alt="Historic stones marking the conservation donation"
+            alt={t("about.donationAlt")}
             className="h-full w-full object-cover"
           />
         </figure>
       </section>
 
       <section className={`${glassPanel} space-y-4`}>
-        <h2 className="text-2xl font-semibold">Story steps timeline</h2>
+        <h2 className="text-2xl font-semibold">{t("about.timelineTitle")}</h2>
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          Follow the milestones that brought the woodland from churchyard trail
-          to protected community treasure:
+          {t("about.timelineIntro")}
         </p>
         <div className="grid gap-4 md:grid-cols-5">
           {timeline.map(({ year, title, body }) => (
@@ -520,13 +500,13 @@ export default function About() {
               className="group rounded-2xl border border-white/40 bg-white/70 p-4 shadow-inner shadow-slate-900/5 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/10 dark:border-slate-700/60 dark:bg-slate-900/55"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-500 dark:text-emerald-300">
-                {year}
+                {t(year)}
               </p>
               <h3 className="mt-2 text-base font-semibold text-slate-800 dark:text-slate-100">
-                {title}
+                {t(title)}
               </h3>
               <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-                {body}
+                {t(body)}
               </p>
             </article>
           ))}
@@ -535,53 +515,45 @@ export default function About() {
 
       <section className={`${glassPanel} space-y-6`}>
         <h2 className="text-2xl font-semibold">
-          Choose your own woodland adventure
+          {t("about.storiesTitle")}
         </h2>
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          Every stop along the loop feels like a storybook page. Use these
-          images to spark scavenger hunts or plan themed visits for classrooms,
-          clubs, or family outings.
+          {t("about.storiesIntro")}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
-          {photoStories.map(({ image, title, caption }) => (
+          {photoStories.map(({ image, title, caption, link }) => (
             <figure
               key={title}
               className="overflow-hidden rounded-2xl border border-white/40 bg-white/60 shadow-inner shadow-slate-900/10 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/10 dark:border-slate-700/60 dark:bg-slate-900/55"
             >
               <img
                 src={image}
-                alt={title}
+                alt={t(title)}
                 className="h-56 w-full object-cover sm:h-64"
               />
               <figcaption className="space-y-3 px-5 py-4">
                 <div>
-                  <h3 className="text-lg font-semibold">{title}</h3>
+                  <h3 className="text-lg font-semibold">{t(title)}</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-300">
-                    {caption}
+                    {t(caption)}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {[
-                    "Trailhead Warm-Up",
-                    "Labyrinth of Quiet Steps",
-                    "Listening Telephone",
-                    "Farmhouse Foundations",
-                    "Historic Wells",
-                  ].includes(title) ? (
+                  {link === "map" ? (
                     <Link
                       to="/sitemap"
                       className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 transition hover:underline dark:text-slate-200"
                     >
-                      Trail Map
+                      {t("about.links.trailMap")}
                       <FaMapMarkedAlt className="text-sm" />
                     </Link>
                   ) : null}
-                  {title === "Meet the Woodland Neighbours" ? (
+                  {link === "ecology" ? (
                     <Link
                       to="/ecology"
                       className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 transition hover:underline dark:text-slate-200"
                     >
-                      Ecology
+                      {t("about.links.ecology")}
                       <BsArrowUpRight />
                     </Link>
                   ) : null}
@@ -593,10 +565,9 @@ export default function About() {
       </section>
 
       <section className={`${glassPanel} space-y-4`}>
-        <h2 className="text-2xl font-semibold">Trail discovery prompts</h2>
+        <h2 className="text-2xl font-semibold">{t("about.promptsTitle")}</h2>
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          Turn every visit into a mini mission and share your discoveries with
-          neighbours and friends.
+          {t("about.promptsIntro")}
         </p>
         <div className="grid gap-3 text-sm text-slate-600 dark:text-slate-300 md:grid-cols-2">
           {trailDiscoveryIdeas.map((idea) => (
@@ -605,7 +576,7 @@ export default function About() {
               className="flex items-start gap-2 rounded-2xl border border-white/40 bg-white/65 p-3 shadow-inner shadow-slate-900/5 dark:border-slate-700/60 dark:bg-slate-900/55"
             >
               <FaCompass className="mt-1 text-emerald-500" />
-              <span>{idea}</span>
+              <span>{t(idea)}</span>
             </div>
           ))}
         </div>
@@ -615,34 +586,28 @@ export default function About() {
         <figure className="order-last overflow-hidden rounded-2xl border border-white/40 shadow-inner shadow-slate-900/10 dark:border-slate-700/60 md:order-first">
           <img
             src={lakeshoreImage}
-            alt="Brine Lake lookout at the end of the woodland trail"
+            alt={t("about.lakeAlt")}
             className="h-full w-full object-cover"
           />
         </figure>
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">How we keep the promise</h2>
+          <h2 className="text-2xl font-semibold">{t("about.promise.title")}</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            Volunteers coordinate with Halifax Regional Municipality staff,
-            conservation partners, and the Green Burial Society of Canada to
-            protect the woodland through a conservation easement. This legal
-            promise keeps the land natural while supporting green burial
-            certification.
+            {t("about.promise.p1")}
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            Want to help? Join monthly trail care events, offer nature lessons,
-            or support the conservation fund. Every hour shared on the trail
-            keeps the woodland thriving for future generations.
+            {t("about.promise.p2")}
           </p>
           <div className="grid gap-2 text-sm text-slate-600 dark:text-slate-300">
             <div className="flex items-start gap-2">
               <FaLeaf className="mt-1 text-emerald-500" />
               <span>
-                Share stewardship ideas or request a guided tour through our{" "}
+                {t("about.promise.contactLead")}{" "}
                 <Link
                   to="/contact"
                   className="underline decoration-emerald-400 decoration-2 underline-offset-4"
                 >
-                  contact page
+                  {t("about.promise.contactLink")}
                 </Link>
                 .
               </span>

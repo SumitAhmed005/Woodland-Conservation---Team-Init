@@ -73,7 +73,8 @@
     "playFailed": "Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.",
     "genericError": "An error occurred while trying to play audio. Please update your Azure Speech API keys.",
     "configureHint": "Configure in Netlify/Azure environment variables or create a .env file for local development.",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "playSection": "Play Section Audio"
   },
   "footer": {
     "planTitle": "Plan your visit",
@@ -193,5 +194,119 @@
       }
     },
     "closing": "This place is not only for today. It is for the future. The idea is to protect a living forest in Nova Scotia so that families, visitors, animals, and plants can all share it with care. Natural burial is part of that promise."
+  },
+  "about": {
+    "eyebrow": "About the Conservation Woodland",
+    "title": "French Village Conservation Woodland is the forest family behind St. Paul's Church.",
+    "intro": "Step off St. Paul's Lane and you're instantly on land gifted by St. Paul's Anglican Church for the whole community. The 27 acres stretch almost two kilometres from the heritage churchyard to Brine Lake with wetlands, yellow birch groves, and trail stops that invite curious visitors and lifelong nature lovers alike.",
+    "trailheadLabel": "Trailhead:",
+    "trailheadText": "Behind St. Paul's Anglican Church, 71 St. Pauls Lane, French Village",
+    "links": {
+      "trailMap": "Trail Map",
+      "ecology": "Ecology",
+      "gallery": "Gallery",
+      "contact": "Contact",
+      "naturalBurial": "Natural Burial"
+    },
+    "churchAlt": "Historic sketch of St. Paul's Anglican Church",
+    "mission": {
+      "gifted": {
+        "title": "Gifted by St. Paul’s",
+        "text": "The land behind St. Paul’s Anglican Church was donated so the community could explore 27 acres of forest forever."
+      },
+      "lake": {
+        "title": "Brine Lake Guardian",
+        "text": "Wetlands and a winding stream protect Brine Lake, keeping homes for birds, beavers, and dragonflies safe and splashy."
+      },
+      "volunteer": {
+        "title": "Volunteer Powered",
+        "text": "Neighbours plan trail care days, lead playful scavenger hunts, and guide visitors through the forest classrooms."
+      },
+      "explore": {
+        "title": "Easy to Explore",
+        "text": "A friendly loop starts right behind the church and winds past play stops, story markers, and quiet reflection spots."
+      }
+    },
+    "why": {
+      "title": "Why this woodland matters",
+      "p1": "The French Village Conservation Woodland is a living classroom, a playground without swings, and a peaceful memorial all at once. Volunteers care for the forest so neighbours can learn about lichens, families can walk together, and elders can find quiet remembering spaces.",
+      "p2": "A memorial stone beside the shoreline honours the Brine family, whose name lives on through Brine Lake and the traditions they helped establish in French Village.",
+      "p3": "Halifax Regional Council’s Item 4 Information Report (May 9, 2023) celebrated the site’s ecological value and supported the request to include the woodland in Nova Scotia’s Protected Areas Registry. It confirmed the path toward a conservation easement that honours the church’s donation.",
+      "p4": "With partners like local schools, nature trusts, and the Green Burial Society of Canada, the woodland is preparing to become the first urban certified green burial conservation cemetery in Canada—while still welcoming everyday adventures."
+    },
+    "donationAlt": "Historic stones marking the conservation donation",
+    "timelineTitle": "Story steps timeline",
+    "timelineIntro": "Follow the milestones that brought the woodland from churchyard trail to protected community treasure:",
+    "timeline": {
+      "roots": {
+        "year": "Before 1900",
+        "title": "Church & Community Roots",
+        "body": "Families gathered at St. Paul’s Anglican Church and cared for the woods beside the historic cemetery."
+      },
+      "donation": {
+        "year": "Gifted Land",
+        "title": "Church Donation",
+        "body": "The congregation set aside 27 acres for community recreation, reflection, and future conservation."
+      },
+      "motion": {
+        "year": "Feb 2022",
+        "title": "Council Motion",
+        "body": "Halifax Regional Council requested a report asking the Province to protect the French Village Conservation Woodland."
+      },
+      "report": {
+        "year": "May 2023",
+        "title": "Protected Areas Report",
+        "body": "Council reviewed the Protected Areas Registry report confirming the site’s ecological value and path to a conservation easement."
+      },
+      "today": {
+        "year": "Today",
+        "title": "Next Steps",
+        "body": "Volunteers and partners are finalizing conservation agreements and welcoming programming so everyone can enjoy the trails."
+      }
+    },
+    "storiesTitle": "Choose your own woodland adventure",
+    "storiesIntro": "Every stop along the loop feels like a storybook page. Use these images to spark scavenger hunts or plan themed visits for classrooms, clubs, or family outings.",
+    "stories": {
+      "warmup": {
+        "title": "Trailhead Warm-Up",
+        "caption": "Start with gentle stretches at the exercise bar designed for all ages to loosen up before the kilometre loop."
+      },
+      "labyrinth": {
+        "title": "Labyrinth of Quiet Steps",
+        "caption": "Walk the spiral path slowly, pause at the centre, and let the breeze carry the sounds of the woods around you."
+      },
+      "telephone": {
+        "title": "Listening Telephone",
+        "caption": "Take a moment at the woodland telephone to share a gentle message with loved ones who are remembered among the trees."
+      },
+      "farmhouse": {
+        "title": "Farmhouse Foundations",
+        "caption": "Imagine life in the clearing where the original farmhouse stood and learn about daily chores from 100 years ago."
+      },
+      "wells": {
+        "title": "Historic Wells",
+        "caption": "Stone wells that once provided fresh water now sit among fern-lined clearings with stories about the families who drew from them."
+      },
+      "neighbours": {
+        "title": "Meet the Woodland Neighbours",
+        "caption": "Discover mossy logs, lichens, and the wildlife who depend on this forest—then continue learning in our ecology guide."
+      }
+    },
+    "promptsTitle": "Trail discovery prompts",
+    "promptsIntro": "Turn every visit into a mini mission and share your discoveries with neighbours and friends.",
+    "prompts": {
+      "rings": "Count the rings on the exercise log and imagine the seasons this tree has known.",
+      "birch": "Spot yellow birch bark curling like paper ribbons and match the texture to nearby leaves.",
+      "telephone": "Pause by the woodland telephone post and offer a quiet message for someone you miss.",
+      "lookout": "Take a deep breath at the Brine Lake lookout and sketch the clouds reflecting on the water."
+    },
+    "lakeAlt": "Brine Lake lookout at the end of the woodland trail",
+    "promise": {
+      "title": "How we keep the promise",
+      "p1": "Volunteers coordinate with Halifax Regional Municipality staff, conservation partners, and the Green Burial Society of Canada to protect the woodland through a conservation easement. This legal promise keeps the land natural while supporting green burial certification.",
+      "p2": "Want to help? Join monthly trail care events, offer nature lessons, or support the conservation fund. Every hour shared on the trail keeps the woodland thriving for future generations.",
+      "contactLead": "Share stewardship ideas or request a guided tour through our",
+      "contactLink": "contact page"
+    }
   }
 }
