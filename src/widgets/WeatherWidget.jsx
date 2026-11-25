@@ -2,6 +2,7 @@
  * ================================================================================
  * File: WeatherWidget.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Translated weather labels and status messages
  * Description: Weather display component fetching current conditions from Open-Meteo API
  * with 15-minute caching to reduce API calls and improve performance.
  * ================================================================================
@@ -11,6 +12,7 @@ import React, { useState, useEffect } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaSun, FaCloud, FaCloudRain, FaSnowflake, FaSmog, FaMoon } from "react-icons/fa";
 import { fetchWeatherApi } from "openmeteo";
+import { useLanguage } from "../locales/LanguageContext";
 
 // ============================================================================
 // WeatherWidget Component
@@ -21,6 +23,15 @@ import { fetchWeatherApi } from "openmeteo";
  * @returns {JSX.Element}
  */
 const WeatherWidget = () => {
+  const { t } = useLanguage();
+
+  // Weather descriptions come from weather.conditions.<description> in the locale files.
+  // Cached data (saved in English) still translates because the English text is the key.
+  const describe = (description) => {
+    const key = `weather.conditions.${description}`;
+    const value = t(key);
+    return value === key ? description : value;
+  };
   // ============================================================================
   // State Management
   // ============================================================================
@@ -244,7 +255,7 @@ const WeatherWidget = () => {
     return (
       <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
         <div className="h-3 w-3 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent"></div>
-        <span className="hidden sm:inline">Loading...</span>
+        <span className="hidden sm:inline">{t("weather.loading")}</span>
       </div>
     );
   }
@@ -253,7 +264,7 @@ const WeatherWidget = () => {
     return (
       <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
         <IoLocationOutline />
-        <span className="hidden sm:inline">Weather unavailable</span>
+        <span className="hidden sm:inline">{t("weather.unavailable")}</span>
       </div>
     );
   }
@@ -263,7 +274,7 @@ const WeatherWidget = () => {
     return (
       <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
         <IoLocationOutline />
-        <span className="hidden sm:inline">Weather unavailable</span>
+        <span className="hidden sm:inline">{t("weather.unavailable")}</span>
       </div>
     );
   }
@@ -288,7 +299,7 @@ const WeatherWidget = () => {
       <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-1.5">
         <span className="font-semibold whitespace-nowrap">{Math.round(weather.main.temp)}°C</span>
         <span className="hidden 2xl:inline text-slate-500 dark:text-slate-400">•</span>
-        <span className="hidden 2xl:inline capitalize text-slate-600 dark:text-slate-300 text-center sm:text-left">{weather.weather[0].description}</span>
+        <span className="hidden 2xl:inline capitalize text-slate-600 dark:text-slate-300 text-center sm:text-left">{describe(weather.weather[0].description)}</span>
       </div>
     </div>
   );

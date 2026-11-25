@@ -427,5 +427,23 @@
         "clickText": "Labyrinthe : un labyrinthe est un chemin sinueux que l'on suit jusqu'au centre pour trouver le calme."
       }
     }
+  },
+  "weather": {
+    "loading": "Chargement...",
+    "unavailable": "Météo non disponible",
+    "conditions": {
+      "clear sky": "ciel dégagé",
+      "partly cloudy": "partiellement nuageux",
+      "foggy": "brouillard",
+      "drizzle": "bruine",
+      "freezing drizzle": "bruine verglaçante",
+      "rain": "pluie",
+      "freezing rain": "pluie verglaçante",
+      "snow": "neige",
+      "rain showers": "averses de pluie",
+      "snow showers": "averses de neige",
+      "thunderstorm": "orage",
+      "cloudy": "nuageux"
+    }
   }
 }

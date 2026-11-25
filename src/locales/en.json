@@ -390,5 +390,23 @@
         "clickText": "Labyrinth: A labyrinth is a winding path you follow to reach the center and find calm."
       }
     }
+  },
+  "weather": {
+    "loading": "Loading...",
+    "unavailable": "Weather unavailable",
+    "conditions": {
+      "clear sky": "clear sky",
+      "partly cloudy": "partly cloudy",
+      "foggy": "foggy",
+      "drizzle": "drizzle",
+      "freezing drizzle": "freezing drizzle",
+      "rain": "rain",
+      "freezing rain": "freezing rain",
+      "snow": "snow",
+      "rain showers": "rain showers",
+      "snow showers": "snow showers",
+      "thunderstorm": "thunderstorm",
+      "cloudy": "cloudy"
+    }
   }
 }
