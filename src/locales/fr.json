@@ -74,5 +74,21 @@
         "genericError": "Une erreur s'est produite lors de la lecture de l'audio. Veuillez mettre à jour vos clés de l'API Azure Speech.",
         "configureHint": "Configurez-les dans les variables d'environnement Netlify/Azure ou créez un fichier .env pour le développement local.",
         "dismiss": "Fermer"
+    },
+    "footer": {
+        "planTitle": "Planifiez votre visite",
+        "links": {
+            "maps": "Cartes",
+            "about": "À propos",
+            "ecology": "Écologie",
+            "gallery": "Galerie",
+            "contact": "Nous joindre",
+            "naturalBurial": "Inhumation naturelle",
+            "shop": "Boutique"
+        },
+        "exploreTitle": "Explorez davantage",
+        "exploreBody": "Découvrez le sentier, renseignez-vous sur nos projets de restauration et partagez votre expérience pour que d'autres puissent aussi profiter de la forêt.",
+        "connectTitle": "Restez en contact",
+        "copyright": "Woodland Conservation Area. Tous droits réservés."
     }
 }

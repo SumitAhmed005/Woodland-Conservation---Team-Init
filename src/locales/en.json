@@ -74,5 +74,21 @@
     "genericError": "An error occurred while trying to play audio. Please update your Azure Speech API keys.",
     "configureHint": "Configure in Netlify/Azure environment variables or create a .env file for local development.",
     "dismiss": "Dismiss"
+  },
+  "footer": {
+    "planTitle": "Plan your visit",
+    "links": {
+      "maps": "Maps",
+      "about": "About",
+      "ecology": "Ecology",
+      "gallery": "Gallery",
+      "contact": "Contact Us",
+      "naturalBurial": "Natural Burial",
+      "shop": "Shop"
+    },
+    "exploreTitle": "Explore more",
+    "exploreBody": "Discover the trail, read about our restoration projects, and share your experience so others can enjoy the forest too.",
+    "connectTitle": "Connect",
+    "copyright": "Woodland Conservation Area. All rights reserved."
   }
 }
