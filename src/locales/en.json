@@ -90,5 +90,32 @@
     "exploreBody": "Discover the trail, read about our restoration projects, and share your experience so others can enjoy the forest too.",
     "connectTitle": "Connect",
     "copyright": "Woodland Conservation Area. All rights reserved."
+  },
+  "contact": {
+    "title": "Get in touch",
+    "intro": "We would love to hear from you. Use the form below or connect with us through our social channels to share feedback, volunteer, or plan a visit.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "reason": "Reason for Contact",
+      "message": "Message",
+      "messagePlaceholder": "Share your thoughts or questions",
+      "send": "Send",
+      "thanks": "Thank you for your message. We'll get back to you soon!"
+    },
+    "reasons": {
+      "reasonPlaceholder": "Select a reason...",
+      "volunteering": "Volunteering / Trail Care",
+      "naturalBurial": "Natural Burial Inquiries",
+      "shop": "Shop / Product Questions",
+      "visit": "Planning a Visit",
+      "general": "General Questions / Feedback",
+      "other": "Other"
+    },
+    "directTitle": "Direct contacts",
+    "followTitle": "Follow us",
+    "followBody": "Join our community online for event updates, volunteer days, and trail highlights."
   }
 }

@@ -2,6 +2,7 @@
  * ================================================================================
  * File: Contact.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected all text to translations
  * Description: Contact page with form, address information, and social media links.
  * Includes Azure text-to-speech for header narration and accessibility.
  * ================================================================================
@@ -18,6 +19,7 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import Footer from "../layout/Footer";
+import { useLanguage } from "../locales/LanguageContext";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================
@@ -29,6 +31,7 @@ import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
  * @returns {JSX.Element}
  */
 const Contact = () => {
+  const { t } = useLanguage();
   // ============================================================================
   // State Management
   // ============================================================================
@@ -117,7 +120,7 @@ const Contact = () => {
         speechRegion.toLowerCase().includes('your_azure');
       
       if (hasPlaceholderKeys) {
-        setAlertMessage("Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.");
+        setAlertMessage(t("audio.keysMissing"));
         setTimeout(() => setAlertMessage(null), 10000);
         return;
       }
@@ -128,7 +131,7 @@ const Contact = () => {
       const synthesizer = synthesizerRef.current;
       const player = playerRef.current;
       if (!synthesizer) {
-        setAlertMessage("Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.");
+        setAlertMessage(t("audio.notInitialized"));
         setTimeout(() => setAlertMessage(null), 8000);
         return;
       }
@@ -149,14 +152,14 @@ const Contact = () => {
         (err) => {
           console.error("Speech error:", err);
           // Show alert immediately when WebSocket/API error occurs
-          setAlertMessage("Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.");
+          setAlertMessage(t("audio.playFailed"));
           setTimeout(() => setAlertMessage(null), 10000);
           setIsSpeaking(false);
         }
       );
     } catch (error) {
       console.error("Error playing audio:", error);
-      setAlertMessage("An error occurred while trying to play audio. Please update your Azure Speech API keys.");
+      setAlertMessage(t("audio.genericError"));
       setTimeout(() => setAlertMessage(null), 8000);
     }
   };
@@ -177,10 +180,9 @@ const Contact = () => {
     <div className="flex flex-col gap-8 text-slate-800 dark:text-slate-100">
       <header className={`${glassPanel} flex flex-col gap-5 md:flex-row md:items-center md:justify-between`}>
         <div>
-          <h1 className="text-2xl font-semibold md:text-3xl">Get in touch</h1>
+          <h1 className="text-2xl font-semibold md:text-3xl">{t("contact.title")}</h1>
           <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-            We would love to hear from you. Use the form below or connect with us through our
-            social channels to share feedback, volunteer, or plan a visit.
+            {t("contact.intro")}
           </p>
 
           {/* AUDIO BUTTONS */}
@@ -189,16 +191,14 @@ const Contact = () => {
               <div className="flex items-start gap-2 rounded-lg border border-amber-400/50 bg-amber-50/90 p-3 text-xs text-amber-800 dark:border-amber-500/50 dark:bg-amber-900/90 dark:text-amber-200">
                 <IoWarningOutline className="mt-0.5 h-4 w-4 flex-shrink-0" />
                 <div className="flex-1">
-                  <p className="font-medium">Azure API Keys Required</p>
+                  <p className="font-medium">{t("audio.keysRequiredTitle")}</p>
                   <p className="mt-1">{alertMessage}</p>
-                  <p className="mt-2 text-xs">
-                    Configure in Netlify/Azure environment variables or create a <code className="rounded bg-amber-200/50 px-1 dark:bg-amber-800/50">.env</code> file for local development.
-                  </p>
+                  <p className="mt-2 text-xs">{t("audio.configureHint")}</p>
                 </div>
                 <button
                   onClick={() => setAlertMessage(null)}
                   className="flex-shrink-0 text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-                  aria-label="Dismiss"
+                  aria-label={t("audio.dismiss")}
                 >
                   <IoClose className="h-4 w-4" />
                 </button>
@@ -210,14 +210,14 @@ const Contact = () => {
                 onClick={playHeaderAudio}
                 className="px-4 py-2 rounded-full bg-emerald-600 text-white text-sm font-medium shadow hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Play Audio
+                {t("audio.play")}
               </button>
               <button
                 type="button"
                 onClick={stopHeaderAudio}
                 className="px-4 py-2 rounded-full bg-red-600 text-white text-sm font-medium shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
               >
-                Stop Audio
+                {t("audio.stop")}
               </button>
             </div>
           </div>
@@ -229,16 +229,16 @@ const Contact = () => {
           <div className="grid gap-6 md:grid-cols-2">
             {[
               {
-                label: "Name",
+                label: t("contact.form.name"),
                 id: "name",
                 type: "text",
-                placeholder: "Your name",
+                placeholder: t("contact.form.namePlaceholder"),
               },
               {
-                label: "Email",
+                label: t("contact.form.email"),
                 id: "email",
                 type: "email",
-                placeholder: "you@example.com",
+                placeholder: t("contact.form.emailPlaceholder"),
               },
             ].map(({ label, id, type, placeholder }) => (
               <div key={id} className="space-y-2">
@@ -263,7 +263,7 @@ const Contact = () => {
               htmlFor="reason"
               className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
             >
-              Reason for Contact
+              {t("contact.form.reason")}
             </label>
             <select
               id="reason"
@@ -271,13 +271,13 @@ const Contact = () => {
               onChange={(e) => setContactReason(e.target.value)}
               className="w-full rounded-2xl border border-white/60 bg-white/80 px-4 py-3 text-sm shadow-inner shadow-slate-900/5 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 dark:border-slate-700/60 dark:bg-slate-900/70"
             >
-              <option value="">Select a reason...</option>
-              <option value="volunteering">Volunteering / Trail Care</option>
-              <option value="natural-burial">Natural Burial Inquiries</option>
-              <option value="shop">Shop / Product Questions</option>
-              <option value="visit">Planning a Visit</option>
-              <option value="general">General Questions / Feedback</option>
-              <option value="other">Other</option>
+              <option value="">{t("contact.reasons.reasonPlaceholder")}</option>
+              <option value="volunteering">{t("contact.reasons.volunteering")}</option>
+              <option value="natural-burial">{t("contact.reasons.naturalBurial")}</option>
+              <option value="shop">{t("contact.reasons.shop")}</option>
+              <option value="visit">{t("contact.reasons.visit")}</option>
+              <option value="general">{t("contact.reasons.general")}</option>
+              <option value="other">{t("contact.reasons.other")}</option>
             </select>
           </div>
 
@@ -286,12 +286,12 @@ const Contact = () => {
               htmlFor="message"
               className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
             >
-              Message
+              {t("contact.form.message")}
             </label>
             <textarea
               id="message"
               rows="5"
-              placeholder="Share your thoughts or questions"
+              placeholder={t("contact.form.messagePlaceholder")}
               className="w-full rounded-2xl border border-white/60 bg-white/80 px-4 py-3 text-sm shadow-inner shadow-slate-900/5 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 dark:border-slate-700/60 dark:bg-slate-900/70"
             />
           </div>
@@ -301,17 +301,17 @@ const Contact = () => {
             className="w-full rounded-full border border-emerald-500 bg-emerald-500/90 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-500"
             onClick={(e) => {
               e.preventDefault();
-              alert("Thank you for your message. We'll get back to you soon!");
+              alert(t("contact.form.thanks"));
             }}
           >
-            Send
+            {t("contact.form.send")}
           </button>
         </form>
       </section>
 
       <section className={`${glassPanel} grid gap-6 p-6 md:grid-cols-2`}>
         <div>
-          <h2 className="text-2xl font-semibold">Direct contacts</h2>
+          <h2 className="text-2xl font-semibold">{t("contact.directTitle")}</h2>
           <div className="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <div className="flex items-center gap-3">
               <FaPhone className="text-emerald-500" />
@@ -328,21 +328,22 @@ const Contact = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-2xl font-semibold">Follow us</h2>
+          <h2 className="text-2xl font-semibold">{t("contact.followTitle")}</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-            Join our community online for event updates, volunteer days, and trail highlights.
+            {t("contact.followBody")}
           </p>
           <div className="mt-4 flex gap-4">
             {[
-              { icon: <FaFacebook />, href: "https://facebook.com" },
-              { icon: <FaInstagram />, href: "https://instagram.com" },
-              { icon: <FaXTwitter />, href: "https://twitter.com" },
-            ].map(({ icon, href }) => (
+              { icon: <FaFacebook />, href: "https://facebook.com", label: "Facebook" },
+              { icon: <FaInstagram />, href: "https://instagram.com", label: "Instagram" },
+              { icon: <FaXTwitter />, href: "https://twitter.com", label: "X" },
+            ].map(({ icon, href, label }) => (
               <a
                 key={href}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={label}
                 className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/50 bg-white/70 text-emerald-600 shadow-inner shadow-slate-900/5 transition hover:bg-white dark:border-slate-600/60 dark:bg-slate-900/60 dark:text-emerald-200"
               >
                 {icon}
