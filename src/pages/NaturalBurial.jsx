@@ -2,6 +2,7 @@
  * ================================================================================
  * File: NaturalBurial.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected all text to translations
  * Description: Natural burial information page displaying benefits, process,
  * and environmental impact with Azure text-to-speech for accessibility.
  * ================================================================================
@@ -18,6 +19,7 @@ import {
 } from "react-icons/fa";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import Footer from "../layout/Footer";
+import { useLanguage } from "../locales/LanguageContext";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================
@@ -37,6 +39,7 @@ const glassPanel =
  * @returns {JSX.Element}
  */
 export default function NaturalBurial() {
+  const { t } = useLanguage();
   // ============================================================================
   // State Management
   // ============================================================================
@@ -121,7 +124,7 @@ export default function NaturalBurial() {
         speechRegion.toLowerCase().includes('your_azure');
       
       if (hasPlaceholderKeys) {
-        setAlertMessage("Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.");
+        setAlertMessage(t("audio.keysMissing"));
         setTimeout(() => setAlertMessage(null), 10000);
         return;
       }
@@ -133,7 +136,7 @@ export default function NaturalBurial() {
       const player = playerRef.current;
       // Verify synthesizer was initialized successfully
       if (!synthesizer) {
-        setAlertMessage("Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.");
+        setAlertMessage(t("audio.notInitialized"));
         setTimeout(() => setAlertMessage(null), 8000);
         return;
       }
@@ -156,14 +159,14 @@ export default function NaturalBurial() {
         (err) => {
           console.error("Speech error:", err);
           // Show alert immediately when WebSocket/API error occurs
-          setAlertMessage("Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.");
+          setAlertMessage(t("audio.playFailed"));
           setTimeout(() => setAlertMessage(null), 10000);
           setIsSpeaking(false);
         }
       );
     } catch (error) {
       console.error("Error playing audio:", error);
-      setAlertMessage("An error occurred while trying to play audio. Please update your Azure Speech API keys.");
+      setAlertMessage(t("audio.genericError"));
       setTimeout(() => setAlertMessage(null), 8000);
     }
   };
@@ -183,49 +186,43 @@ export default function NaturalBurial() {
   // Information cards displayed on page
   const cards = [
     {
-      title: "Helping Nature",
+      title: t("burial.cards.nature.title"),
       icon: <FaLeaf className="text-emerald-500 text-3xl" />,
       img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop",
-      description:
-        "Natural burial does not use harmful chemicals. Wood, cloth, and other soft materials are used instead of metal and plastic. The body and the coffin slowly go back into the soil. This feeds the ground in a safe way. Plants, trees, and tiny life in the earth can grow strong here.",
-      extraNote:
-        "This is about caring for the land, not only for today, but for many years after.",
+      description: t("burial.cards.nature.description"),
+      extraNote: t("burial.cards.nature.note"),
     },
     {
-      title: "The Forest in St. Margaret's Bay",
+      title: t("burial.cards.forest.title"),
       icon: <FaTree className="text-emerald-500 text-3xl" />,
       img: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&h=600&fit=crop",
-      description:
-        "This woodland near St. Margaret's Bay has tall trees, moss, and quiet trails. The natural burial area is part of this place, not separate from it. When people are laid to rest here, the forest is not damaged. Instead, the trees and plants are protected.",
-      extraNote:
-        "The site is meant to stay wild, not turn into roads and stone walls.",
+      description: t("burial.cards.forest.description"),
+      extraNote: t("burial.cards.forest.note"),
     },
     {
-      title: "A Peaceful Resting Place",
+      title: t("burial.cards.peaceful.title"),
       icon: <FaFeatherAlt className="text-emerald-500 text-3xl" />,
       img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop",
-      description:
-        "Some people want a resting place that feels warm, soft, and close to nature. Natural burial does not feel like cement and metal. It feels like sunlight through trees, like wind in the leaves, like being part of the land again.",
-      extraNote:
-        "It is quiet. It is respectful. It is kind to the Earth and kind to people.",
+      description: t("burial.cards.peaceful.description"),
+      extraNote: t("burial.cards.peaceful.note"),
     },
   ];
 
   const benefits = [
     {
-      title: "Kind to the Earth",
+      title: t("burial.benefits.earth.title"),
       icon: <FaCloudSun className="text-emerald-500 text-3xl" />,
-      text: "No harsh fluids, no heavy building. Less waste. Less damage. The body returns to the soil in a natural way.",
+      text: t("burial.benefits.earth.text"),
     },
     {
-      title: "Simple and Honest",
+      title: t("burial.benefits.simple.title"),
       icon: <FaPeace className="text-emerald-500 text-3xl" />,
-      text: "The idea is not fancy. It is calm. It is about love, memory, and real connection to land.",
+      text: t("burial.benefits.simple.text"),
     },
     {
-      title: "Helps the Community",
+      title: t("burial.benefits.community.title"),
       icon: <FaHandsHelping className="text-emerald-500 text-3xl" />,
-      text: "This kind of burial can support local conservation. The land can stay safe instead of being sold and changed.",
+      text: t("burial.benefits.community.text"),
     },
   ];
 
@@ -241,16 +238,14 @@ export default function NaturalBurial() {
             <div className="flex items-start gap-2 rounded-lg border border-amber-400/50 bg-amber-50/90 p-3 text-xs text-amber-800 dark:border-amber-500/50 dark:bg-amber-900/90 dark:text-amber-200">
               <IoWarningOutline className="mt-0.5 h-4 w-4 flex-shrink-0" />
               <div className="flex-1">
-                <p className="font-medium">Azure API Keys Required</p>
+                <p className="font-medium">{t("audio.keysRequiredTitle")}</p>
                 <p className="mt-1">{alertMessage}</p>
-                <p className="mt-2 text-xs">
-                  Configure in Netlify/Azure environment variables or create a <code className="rounded bg-amber-200/50 px-1 dark:bg-amber-800/50">.env</code> file for local development.
-                </p>
+                <p className="mt-2 text-xs">{t("audio.configureHint")}</p>
               </div>
               <button
                 onClick={() => setAlertMessage(null)}
                 className="flex-shrink-0 text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-                aria-label="Dismiss"
+                aria-label={t("audio.dismiss")}
               >
                 <IoClose className="h-4 w-4" />
               </button>
@@ -258,16 +253,10 @@ export default function NaturalBurial() {
           )}
           <div>
             <h1 className="text-2xl font-semibold md:text-3xl">
-              Natural Burial
+              {t("burial.title")}
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-              Natural burial is a simple, Earth-friendly way to be laid to rest.
-              There is no concrete, no metal casket, and no heavy use of chemicals.
-              The body returns to the land in a natural way. The burial space looks
-            and feels like part of the forest, not like a normal city cemetery.
-            The goal is to protect the land and keep it alive for the future. At
-            the St. Margaret&apos;s Bay Woodland Conservation Site, the idea is to make
-            a calm place that respects people, and also respects nature.
+              {t("burial.intro")}
           </p>
 
           {/* AUDIO BUTTONS */}
@@ -277,16 +266,16 @@ export default function NaturalBurial() {
               onClick={playHeaderAudio}
               className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-emerald-600 text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
             >
-              Play Audio
-            </button>
+                {t("audio.play")}
+              </button>
 
             <button
               type="button"
               onClick={stopHeaderAudio}
               className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-red-600 text-white shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
             >
-              Stop Audio
-            </button>
+                {t("audio.stop")}
+              </button>
           </div>
           </div>
         </div>
@@ -328,7 +317,7 @@ export default function NaturalBurial() {
       {/* BENEFITS SECTION */}
       <section className={`${glassPanel}`}>
         <h2 className="text-2xl font-semibold mb-6">
-          Why Natural Burial Matters
+          {t("burial.whyTitle")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {benefits.map((b, i) => (
@@ -349,10 +338,7 @@ export default function NaturalBurial() {
           ))}
         </div>
         <p className="text-center text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-8">
-          This place is not only for today. It is for the future. The idea is to
-          protect a living forest in Nova Scotia so that families, visitors,
-          animals, and plants can all share it with care. Natural burial is part
-          of that promise.
+          {t("burial.closing")}
         </p>
       </section>
 

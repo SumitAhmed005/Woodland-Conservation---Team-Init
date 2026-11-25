@@ -2,6 +2,7 @@
  * ================================================================================
  * File: Shop.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected all text to translations
  * Description: Shop page displaying seasonal produce and handmade products from
  * the conservation area with Azure text-to-speech for accessibility.
  * ================================================================================
@@ -12,6 +13,7 @@ import { FaApple, FaLeaf } from "react-icons/fa";
 import { FaJar } from "react-icons/fa6";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import Footer from "../layout/Footer";
+import { useLanguage } from "../locales/LanguageContext";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 import appleTreesImage from "../assets/Shop/Appletrees.jpg";
 import pinCherryImage from "../assets/Shop/Pin Cherry.jpg";
@@ -26,47 +28,27 @@ import wildPearTreeImage from "../assets/Shop/wild pear tree.jpg";
 const glassPanel =
   "rounded-3xl border border-white/40 bg-white/60 p-6 shadow-lg shadow-slate-900/10 backdrop-blur-2xl transition-colors duration-300 dark:border-slate-700/60 dark:bg-slate-900/55";
 
-// Shop items with seasonal availability information
+// Shop items - title, description, price and season text live in shop.items.<id> in the translation files
 const shopItems = [
   {
-    id: "apple-picking",
-    title: "Apple Picking",
+    id: "apple-picking", 
     icon: <FaApple className="text-emerald-500 text-3xl" />,
     image: appleTreesImage,
-    description:
-      "Experience the joy of picking fresh wild apples from our conservation area. Discover the natural flavors of locally grown wild fruit in their natural habitat.",
-    price: "$15 per basket",
-    season: "Available September - October",
   },
   {
-    id: "berry-picking",
-    title: "Berry Picking",
+    id: "berry-picking", 
     icon: <FaLeaf className="text-emerald-500 text-3xl" />,
     image: pinCherryImage,
-    description:
-      "Pick your own fresh wild berries from our conservation area. Choose from wild blueberries, raspberries, and other native berries. Perfect for families and nature lovers.",
-    price: "$12 per container",
-    season: "Available July - August",
   },
   {
-    id: "pear-picking",
-    title: "Pear Picking",
+    id: "pear-picking", 
     icon: <FaApple className="text-emerald-500 text-3xl" />,
     image: wildPearTreeImage,
-    description:
-      "Experience the delight of picking fresh wild pears from our conservation area. Enjoy the unique flavor of naturally grown wild pears in their natural setting.",
-    price: "$15 per basket",
-    season: "Available August - September",
   },
   {
-    id: "homemade-jam",
-    title: "Homemade Jam",
+    id: "homemade-jam", 
     icon: <FaJar className="text-emerald-500 text-3xl" />,
     image: jamsImage,
-    description:
-      "Handcrafted jams made from the fruits picked in our conservation area. Made with care using traditional recipes and natural ingredients.",
-    price: "$8 per jar",
-    season: "Available year-round",
   },
 ];
 
@@ -79,6 +61,7 @@ const shopItems = [
  * @returns {JSX.Element}
  */
 export default function Shop() {
+  const { t } = useLanguage();
   // ============================================================================
   // State Management
   // ============================================================================
@@ -161,7 +144,7 @@ export default function Shop() {
         speechRegion.toLowerCase().includes('your_azure');
       
       if (hasPlaceholderKeys) {
-        setAlertMessage("Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.");
+        setAlertMessage(t("audio.keysMissing"));
         setTimeout(() => setAlertMessage(null), 10000);
         return;
       }
@@ -173,7 +156,7 @@ export default function Shop() {
       const player = playerRef.current;
       // Verify synthesizer was initialized successfully
       if (!synthesizer) {
-        setAlertMessage("Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.");
+        setAlertMessage(t("audio.notInitialized"));
         setTimeout(() => setAlertMessage(null), 8000);
         return;
       }
@@ -192,14 +175,14 @@ export default function Shop() {
         (err) => {
           console.error("Speech error:", err);
           // Show alert immediately when WebSocket/API error occurs
-          setAlertMessage("Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.");
+          setAlertMessage(t("audio.playFailed"));
           setTimeout(() => setAlertMessage(null), 10000);
           setIsSpeaking(false);
         }
       );
     } catch (error) {
       console.error("Error playing audio:", error);
-      setAlertMessage("An error occurred while trying to play audio. Please update your Azure Speech API keys.");
+      setAlertMessage(t("audio.genericError"));
       setTimeout(() => setAlertMessage(null), 8000);
     }
   };
@@ -225,27 +208,24 @@ export default function Shop() {
             <div className="flex items-start gap-2 rounded-lg border border-amber-400/50 bg-amber-50/90 p-3 text-xs text-amber-800 dark:border-amber-500/50 dark:bg-amber-900/90 dark:text-amber-200">
               <IoWarningOutline className="mt-0.5 h-4 w-4 flex-shrink-0" />
               <div className="flex-1">
-                <p className="font-medium">Azure API Keys Required</p>
+                <p className="font-medium">{t("audio.keysRequiredTitle")}</p>
                 <p className="mt-1">{alertMessage}</p>
-                <p className="mt-2 text-xs">
-                  Configure in Netlify/Azure environment variables or create a <code className="rounded bg-amber-200/50 px-1 dark:bg-amber-800/50">.env</code> file for local development.
-                </p>
+                <p className="mt-2 text-xs">{t("audio.configureHint")}</p>
               </div>
               <button
                 onClick={() => setAlertMessage(null)}
                 className="flex-shrink-0 text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-                aria-label="Dismiss"
+                aria-label={t("audio.dismiss")}
               >
                 <IoClose className="h-4 w-4" />
               </button>
             </div>
           )}
           <div>
-            <h1 className="text-2xl font-semibold md:text-3xl">Shop</h1>
+            <h1 className="text-2xl font-semibold md:text-3xl">{t("shop.title")}</h1>
 
             <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-              Discover fresh produce and homemade goods from our conservation area.
-              Pick your own fruits or enjoy our handcrafted jams made with care.
+              {t("shop.intro")}
             </p>
 
             {/* AUDIO BUTTONS */}
@@ -255,7 +235,7 @@ export default function Shop() {
                 onClick={playHeaderAudio}
                 className="px-4 py-2 rounded-full bg-emerald-600 text-white text-sm font-medium shadow hover:bg-emerald-700"
               >
-                Play Audio
+                {t("audio.play")}
               </button>
 
               <button
@@ -263,7 +243,7 @@ export default function Shop() {
                 onClick={stopHeaderAudio}
                 className="px-4 py-2 rounded-full bg-red-600 text-white text-sm font-medium shadow hover:bg-red-700"
               >
-                Stop Audio
+                {t("audio.stop")}
               </button>
             </div>
           </div>
@@ -277,24 +257,24 @@ export default function Shop() {
             <div className="relative w-full h-48 rounded-xl overflow-hidden">
               <img
                 src={item.image}
-                alt={item.title}
+                alt={t(`shop.items.${item.id}.title`)}
                 className="w-full h-full object-cover"
               />
             </div>
 
             <div className="space-y-2">
-              <h2 className="text-lg font-semibold">{item.title}</h2>
+              <h2 className="text-lg font-semibold">{t(`shop.items.${item.id}.title`)}</h2>
               <p className="text-sm text-slate-600 dark:text-slate-300">
-                {item.description}
+                {t(`shop.items.${item.id}.description`)}
               </p>
             </div>
 
             <div className="mt-auto space-y-2 pt-2 border-t border-white/40 dark:border-slate-700/60">
               <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-300">
-                {item.price}
+                {t(`shop.items.${item.id}.price`)}
               </span>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                {item.season}
+                {t(`shop.items.${item.id}.season`)}
               </p>
             </div>
           </article>
@@ -303,17 +283,13 @@ export default function Shop() {
 
       {/* INFO SECTION */}
       <section className={`${glassPanel}`}>
-        <h2 className="text-2xl font-semibold mb-4">About Our Products</h2>
+        <h2 className="text-2xl font-semibold mb-4">{t("shop.aboutTitle")}</h2>
         <div className="space-y-4 text-sm text-slate-600 dark:text-slate-300">
           <p>
-            All our products come from the St. Margaret's Bay Woodland Conservation Site. 
-            When you purchase from our shop, you support the conservation efforts and help 
-            maintain this beautiful natural space for future generations.
+            {t("shop.aboutBody1")}
           </p>
           <p>
-            Our fruits are grown using sustainable practices that respect the land and wildlife. 
-            The jams are made in small batches using traditional methods, ensuring quality and flavor 
-            in every jar.
+            {t("shop.aboutBody2")}
           </p>
         </div>
       </section>

@@ -2,6 +2,7 @@
  * ================================================================================
  * File: Gallery.jsx
  * Author: ADM (Abhishek Darsh Manar) 2025 Fall - Software Engineering (CSCI-3428-1)
+ * Modified by: Sumit Ahmed (Team Init) 2026 Fall - Connected all text to translations
  * Description: Photo gallery component displaying conservation area images with
  * upload functionality and Azure text-to-speech for accessibility.
  * ================================================================================
@@ -10,6 +11,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import Footer from "../layout/Footer";
+import { useLanguage } from "../locales/LanguageContext";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 // ============================================================================
@@ -40,6 +42,7 @@ import image9 from '../assets/images-1.jpg';
  * @returns {JSX.Element}
  */
 const Gallery = () => {
+  const { t } = useLanguage();
   // ============================================================================
   // State Management
   // ============================================================================
@@ -135,7 +138,7 @@ const Gallery = () => {
         speechRegion.toLowerCase().includes('your_azure');
       
       if (hasPlaceholderKeys) {
-        setAlertMessage("Azure Speech API keys are missing or invalid. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file for local development.");
+        setAlertMessage(t("audio.keysMissing"));
         setTimeout(() => setAlertMessage(null), 10000);
         return;
       }
@@ -147,7 +150,7 @@ const Gallery = () => {
       const player = playerRef.current;
       // Verify synthesizer was initialized successfully
       if (!synthesizer) {
-        setAlertMessage("Text-to-speech is not initialized. Please configure Azure API keys and refresh the page.");
+        setAlertMessage(t("audio.notInitialized"));
         setTimeout(() => setAlertMessage(null), 8000);
         return;
       }
@@ -165,14 +168,14 @@ const Gallery = () => {
         (err) => {
           console.error("Speech error:", err);
           // Show alert immediately when WebSocket/API error occurs
-          setAlertMessage("Failed to play audio. Your Azure Speech API keys may be invalid or missing. Please update VITE_AZURE_SPEECH_KEY and VITE_AZURE_REGION with valid keys in your environment variables (Netlify/Azure dashboard) or .env file.");
+          setAlertMessage(t("audio.playFailed"));
           setTimeout(() => setAlertMessage(null), 10000);
           setIsSpeaking(false);
         }
       );
     } catch (error) {
       console.error("Error playing audio:", error);
-      setAlertMessage("An error occurred while trying to play audio. Please update your Azure Speech API keys.");
+      setAlertMessage(t("audio.genericError"));
       setTimeout(() => setAlertMessage(null), 8000);
     }
   };
@@ -216,16 +219,14 @@ const Gallery = () => {
             <div className="flex items-start gap-2 rounded-lg border border-amber-400/50 bg-amber-50/90 p-3 text-xs text-amber-800 dark:border-amber-500/50 dark:bg-amber-900/90 dark:text-amber-200">
               <IoWarningOutline className="mt-0.5 h-4 w-4 flex-shrink-0" />
               <div className="flex-1">
-                <p className="font-medium">Azure API Keys Required</p>
+                <p className="font-medium">{t("audio.keysRequiredTitle")}</p>
                 <p className="mt-1">{alertMessage}</p>
-                <p className="mt-2 text-xs">
-                  Configure in Netlify/Azure environment variables or create a <code className="rounded bg-amber-200/50 px-1 dark:bg-amber-800/50">.env</code> file for local development.
-                </p>
+                <p className="mt-2 text-xs">{t("audio.configureHint")}</p>
               </div>
               <button
                 onClick={() => setAlertMessage(null)}
                 className="flex-shrink-0 text-amber-600 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-200"
-                aria-label="Dismiss"
+                aria-label={t("audio.dismiss")}
               >
                 <IoClose className="h-4 w-4" />
               </button>
@@ -233,10 +234,10 @@ const Gallery = () => {
           )}
           <div>
             <h1 className="text-2xl font-semibold md:text-3xl">
-              Enchanting Forest Gallery
+              {t("gallery.title")}
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300">
-              Discover the breathtaking beauty of forests and serene landscapes. Feel free to add your favorite photos to enrich this gallery!
+              {t("gallery.intro")}
             </p>
 
             {/* AUDIO BUTTONS */}
@@ -245,14 +246,14 @@ const Gallery = () => {
                 onClick={playHeaderAudio}
                 className="px-4 py-2 rounded-full bg-emerald-600 text-white text-sm font-medium shadow hover:bg-emerald-700"
               >
-                Play Audio
+                {t("audio.play")}
               </button>
 
               <button
                 onClick={stopHeaderAudio}
                 className="px-4 py-2 rounded-full bg-red-600 text-white text-sm font-medium shadow hover:bg-red-700"
               >
-                Stop Audio
+                {t("audio.stop")}
               </button>
             </div>
           </div>
@@ -284,11 +285,11 @@ const Gallery = () => {
       <section className={`${glassPanel} p-6`}>
         <div className="text-center border-2 border-dashed border-white/60 dark:border-slate-700/60 p-6 rounded-2xl bg-white/40 dark:bg-slate-900/40">
           <p className="text-gray-700 dark:text-gray-300">
-            Drag and drop images here or click below to upload
+            {t("gallery.uploadHint")}
           </p>
 
           <label className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
-            Upload Images
+            {t("gallery.uploadButton")}
             <input
               type="file"
               accept="image/*"

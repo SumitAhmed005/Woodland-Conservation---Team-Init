@@ -117,5 +117,81 @@
     "directTitle": "Coordonnées",
     "followTitle": "Suivez-nous",
     "followBody": "Rejoignez notre communauté en ligne pour suivre les événements, les journées de bénévolat et les nouvelles du sentier."
+  },
+  "gallery": {
+    "title": "Galerie de la forêt enchantée",
+    "intro": "Découvrez la beauté saisissante des forêts et des paysages paisibles. N'hésitez pas à ajouter vos photos préférées pour enrichir cette galerie!",
+    "uploadHint": "Glissez-déposez des images ici ou cliquez ci-dessous pour les téléverser",
+    "uploadButton": "Téléverser des images"
+  },
+  "shop": {
+    "title": "Boutique",
+    "intro": "Découvrez des produits frais et faits maison de notre aire de conservation. Cueillez vous-même vos fruits ou savourez nos confitures artisanales préparées avec soin.",
+    "items": {
+      "apple-picking": {
+        "title": "Cueillette de pommes",
+        "description": "Vivez le plaisir de cueillir des pommes sauvages fraîches dans notre aire de conservation. Découvrez les saveurs naturelles de fruits sauvages cultivés localement dans leur habitat naturel.",
+        "price": "15 $ le panier",
+        "season": "Disponible de septembre à octobre"
+      },
+      "berry-picking": {
+        "title": "Cueillette de petits fruits",
+        "description": "Cueillez vous-même des petits fruits sauvages frais dans notre aire de conservation. Choisissez parmi les bleuets sauvages, les framboises et d'autres petits fruits indigènes. Idéal pour les familles et les amoureux de la nature.",
+        "price": "12 $ le contenant",
+        "season": "Disponible de juillet à août"
+      },
+      "pear-picking": {
+        "title": "Cueillette de poires",
+        "description": "Vivez le plaisir de cueillir des poires sauvages fraîches dans notre aire de conservation. Savourez le goût unique des poires sauvages cultivées naturellement dans leur milieu naturel.",
+        "price": "15 $ le panier",
+        "season": "Disponible d'août à septembre"
+      },
+      "homemade-jam": {
+        "title": "Confiture maison",
+        "description": "Des confitures artisanales préparées avec les fruits cueillis dans notre aire de conservation. Faites avec soin selon des recettes traditionnelles et des ingrédients naturels.",
+        "price": "8 $ le pot",
+        "season": "Disponible toute l'année"
+      }
+    },
+    "aboutTitle": "À propos de nos produits",
+    "aboutBody1": "Tous nos produits proviennent du site de conservation du boisé de St. Margaret's Bay. En achetant dans notre boutique, vous soutenez les efforts de conservation et contribuez à préserver ce magnifique espace naturel pour les générations futures.",
+    "aboutBody2": "Nos fruits sont cultivés selon des pratiques durables qui respectent la terre et la faune. Les confitures sont préparées en petites quantités selon des méthodes traditionnelles, pour garantir qualité et saveur dans chaque pot."
+  },
+  "burial": {
+    "title": "Inhumation naturelle",
+    "intro": "L'inhumation naturelle est une façon simple et respectueuse de la Terre d'être mis au repos. Il n'y a ni béton, ni cercueil en métal, ni usage important de produits chimiques. Le corps retourne à la terre de façon naturelle. L'espace d'inhumation ressemble à la forêt et en fait partie, contrairement à un cimetière urbain ordinaire. Le but est de protéger la terre et de la garder vivante pour l'avenir. Au site de conservation du boisé de St. Margaret's Bay, l'idée est de créer un lieu paisible qui respecte les gens, et qui respecte aussi la nature.",
+    "cards": {
+      "nature": {
+        "title": "Aider la nature",
+        "description": "L'inhumation naturelle n'utilise pas de produits chimiques nocifs. Le bois, le tissu et d'autres matériaux doux remplacent le métal et le plastique. Le corps et le cercueil retournent lentement au sol. Cela nourrit la terre de façon sûre. Les plantes, les arbres et la petite vie du sol peuvent y croître et devenir forts.",
+        "note": "Il s'agit de prendre soin de la terre, non seulement pour aujourd'hui, mais pour de nombreuses années à venir."
+      },
+      "forest": {
+        "title": "La forêt de St. Margaret's Bay",
+        "description": "Ce boisé près de St. Margaret's Bay compte de grands arbres, de la mousse et des sentiers tranquilles. L'aire d'inhumation naturelle fait partie de ce lieu, elle n'en est pas séparée. Lorsque des personnes reposent ici, la forêt n'est pas endommagée. Au contraire, les arbres et les plantes sont protégés.",
+        "note": "Le site doit rester sauvage, et non se transformer en routes et en murs de pierre."
+      },
+      "peaceful": {
+        "title": "Un lieu de repos paisible",
+        "description": "Certaines personnes souhaitent un lieu de repos chaleureux, doux et proche de la nature. L'inhumation naturelle ne ressemble pas au ciment et au métal. Elle ressemble à la lumière du soleil à travers les arbres, au vent dans les feuilles, au fait de faire de nouveau partie de la terre.",
+        "note": "C'est calme. C'est respectueux. C'est bon pour la Terre et bon pour les gens."
+      }
+    },
+    "whyTitle": "Pourquoi l'inhumation naturelle est importante",
+    "benefits": {
+      "earth": {
+        "title": "Respectueuse de la Terre",
+        "text": "Pas de liquides agressifs, pas de lourdes constructions. Moins de déchets. Moins de dommages. Le corps retourne au sol de façon naturelle."
+      },
+      "simple": {
+        "title": "Simple et sincère",
+        "text": "L'idée n'a rien d'extravagant. Elle est paisible. Elle repose sur l'amour, la mémoire et un véritable lien avec la terre."
+      },
+      "community": {
+        "title": "Utile à la communauté",
+        "text": "Ce type d'inhumation peut soutenir la conservation locale. La terre peut rester protégée au lieu d'être vendue et transformée."
+      }
+    },
+    "closing": "Ce lieu n'est pas seulement pour aujourd'hui. Il est pour l'avenir. L'idée est de protéger une forêt vivante en Nouvelle-Écosse afin que les familles, les visiteurs, les animaux et les plantes puissent tous la partager avec respect. L'inhumation naturelle fait partie de cette promesse."
   }
 }

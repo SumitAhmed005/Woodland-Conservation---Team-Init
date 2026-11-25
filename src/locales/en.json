@@ -117,5 +117,81 @@
     "directTitle": "Direct contacts",
     "followTitle": "Follow us",
     "followBody": "Join our community online for event updates, volunteer days, and trail highlights."
+  },
+  "gallery": {
+    "title": "Enchanting Forest Gallery",
+    "intro": "Discover the breathtaking beauty of forests and serene landscapes. Feel free to add your favorite photos to enrich this gallery!",
+    "uploadHint": "Drag and drop images here or click below to upload",
+    "uploadButton": "Upload Images"
+  },
+  "shop": {
+    "title": "Shop",
+    "intro": "Discover fresh produce and homemade goods from our conservation area. Pick your own fruits or enjoy our handcrafted jams made with care.",
+    "items": {
+      "apple-picking": {
+        "title": "Apple Picking",
+        "description": "Experience the joy of picking fresh wild apples from our conservation area. Discover the natural flavors of locally grown wild fruit in their natural habitat.",
+        "price": "$15 per basket",
+        "season": "Available September - October"
+      },
+      "berry-picking": {
+        "title": "Berry Picking",
+        "description": "Pick your own fresh wild berries from our conservation area. Choose from wild blueberries, raspberries, and other native berries. Perfect for families and nature lovers.",
+        "price": "$12 per container",
+        "season": "Available July - August"
+      },
+      "pear-picking": {
+        "title": "Pear Picking",
+        "description": "Experience the delight of picking fresh wild pears from our conservation area. Enjoy the unique flavor of naturally grown wild pears in their natural setting.",
+        "price": "$15 per basket",
+        "season": "Available August - September"
+      },
+      "homemade-jam": {
+        "title": "Homemade Jam",
+        "description": "Handcrafted jams made from the fruits picked in our conservation area. Made with care using traditional recipes and natural ingredients.",
+        "price": "$8 per jar",
+        "season": "Available year-round"
+      }
+    },
+    "aboutTitle": "About Our Products",
+    "aboutBody1": "All our products come from the St. Margaret's Bay Woodland Conservation Site. When you purchase from our shop, you support the conservation efforts and help maintain this beautiful natural space for future generations.",
+    "aboutBody2": "Our fruits are grown using sustainable practices that respect the land and wildlife. The jams are made in small batches using traditional methods, ensuring quality and flavor in every jar."
+  },
+  "burial": {
+    "title": "Natural Burial",
+    "intro": "Natural burial is a simple, Earth-friendly way to be laid to rest. There is no concrete, no metal casket, and no heavy use of chemicals. The body returns to the land in a natural way. The burial space looks and feels like part of the forest, not like a normal city cemetery. The goal is to protect the land and keep it alive for the future. At the St. Margaret's Bay Woodland Conservation Site, the idea is to make a calm place that respects people, and also respects nature.",
+    "cards": {
+      "nature": {
+        "title": "Helping Nature",
+        "description": "Natural burial does not use harmful chemicals. Wood, cloth, and other soft materials are used instead of metal and plastic. The body and the coffin slowly go back into the soil. This feeds the ground in a safe way. Plants, trees, and tiny life in the earth can grow strong here.",
+        "note": "This is about caring for the land, not only for today, but for many years after."
+      },
+      "forest": {
+        "title": "The Forest in St. Margaret's Bay",
+        "description": "This woodland near St. Margaret's Bay has tall trees, moss, and quiet trails. The natural burial area is part of this place, not separate from it. When people are laid to rest here, the forest is not damaged. Instead, the trees and plants are protected.",
+        "note": "The site is meant to stay wild, not turn into roads and stone walls."
+      },
+      "peaceful": {
+        "title": "A Peaceful Resting Place",
+        "description": "Some people want a resting place that feels warm, soft, and close to nature. Natural burial does not feel like cement and metal. It feels like sunlight through trees, like wind in the leaves, like being part of the land again.",
+        "note": "It is quiet. It is respectful. It is kind to the Earth and kind to people."
+      }
+    },
+    "whyTitle": "Why Natural Burial Matters",
+    "benefits": {
+      "earth": {
+        "title": "Kind to the Earth",
+        "text": "No harsh fluids, no heavy building. Less waste. Less damage. The body returns to the soil in a natural way."
+      },
+      "simple": {
+        "title": "Simple and Honest",
+        "text": "The idea is not fancy. It is calm. It is about love, memory, and real connection to land."
+      },
+      "community": {
+        "title": "Helps the Community",
+        "text": "This kind of burial can support local conservation. The land can stay safe instead of being sold and changed."
+      }
+    },
+    "closing": "This place is not only for today. It is for the future. The idea is to protect a living forest in Nova Scotia so that families, visitors, animals, and plants can all share it with care. Natural burial is part of that promise."
   }
 }
